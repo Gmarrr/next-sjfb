@@ -27,14 +27,14 @@ const env = (k, fallback) => {
 
 const SUPABASE_URL = env('NEXT_PUBLIC_SUPABASE_URL');
 const sb = createClient(SUPABASE_URL, env('SUPABASE_SERVICE_ROLE_KEY'), { auth: { persistSession: false } });
-const OLD_SITE_DIR = env('MIGRATE_OLD_SITE_DIR', 'C:/xampp/htdocs/sjfbi-js');
+const OLD_SITE_DIR = env('MIGRATE_OLD_SITE_DIR', 'C:\Users\ITSTAFF1\Desktop\NextJS\sjfb-website');
 const OLD_SITE_URL = env('MIGRATE_OLD_SITE_URL', 'https://www.fishbrokers.net').replace(/\/$/, '');
 const BUCKET = 'media';
 
 const db = await mysql.createConnection({
   host: env('MIGRATE_DB_HOST'),
   user: env('MIGRATE_DB_USER'),
-  password: env('MIGRATE_DB_PASS', ''),
+  password: process.env.MIGRATE_DB_PASS ?? '',
   database: env('MIGRATE_DB_NAME'),
   dateStrings: true, // keep MySQL dates as plain strings (Manila local time)
   charset: 'utf8mb4',
