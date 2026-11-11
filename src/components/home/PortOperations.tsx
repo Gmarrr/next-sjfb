@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import RichTitle from '@/components/ui/RichTitle';
 
 export type PortLocation = {
   tag: string;
@@ -13,7 +14,7 @@ export type PortLocation = {
 };
 
 // Ported from components/port_operations.php — cards + image-splash modals.
-export default function PortOperations({ locs }: { locs: PortLocation[] }) {
+export default function PortOperations({ locs, badge, title }: { locs: PortLocation[]; badge: string; title: string }) {
   const [openIdx, setOpenIdx] = useState<number | null>(null);
   const [closing, setClosing] = useState(false);
 
@@ -42,10 +43,10 @@ export default function PortOperations({ locs }: { locs: PortLocation[] }) {
           <div className="text-center mb-12" data-aos="fade-up">
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-[.7rem] font-bold uppercase tracking-widest mb-4">
               <span className="animate-pulse-dot w-2 h-2 rounded-full bg-orange-400 shrink-0" />
-              Port Operations
+              {badge}
             </span>
             <h2 className="font-display text-2xl lg:text-3xl font-bold text-white">
-              {locs.length || 4} Ports. <span className="bg-grad-orange bg-clip-text text-transparent">One National Network.</span>
+              {locs.length || 4} <RichTitle text={title} hl="bg-grad-orange bg-clip-text text-transparent" />
             </h2>
           </div>
 

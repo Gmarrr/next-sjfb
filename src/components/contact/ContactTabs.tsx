@@ -3,10 +3,8 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import InquiryForm from './InquiryForm';
 
-const PERKS = ['Good minimum compensation + benefits', 'SSS, PhilHealth, Pag-IBIG covered', '13th month pay + performance bonuses', 'Career growth within our growing network', 'Stable, family-oriented workplace culture', 'Meals / allowances for port-side roles'];
-
 // Tab switcher from contact.php (General Inquiry / Apply-Careers) + sidebar perks card.
-export default function ContactTabs({ careerPanel, sidebar }: { careerPanel: ReactNode; sidebar: ReactNode }) {
+export default function ContactTabs({ careerPanel, sidebar, perks, formTitle, formText }: { careerPanel: ReactNode; sidebar: ReactNode; perks: string[]; formTitle: string; formText: string }) {
   const [tab, setTab] = useState<'inquiry' | 'career'>('inquiry');
 
   useEffect(() => {
@@ -35,7 +33,7 @@ export default function ContactTabs({ careerPanel, sidebar }: { careerPanel: Rea
         </div>
 
         <div id="panel-inquiry" role="tabpanel" hidden={tab !== 'inquiry'} data-aos="fade-up" data-aos-delay="100">
-          <InquiryForm />
+          <InquiryForm title={formTitle} text={formText} />
         </div>
         <div id="panel-career" role="tabpanel" hidden={tab !== 'career'}>
           {careerPanel}
@@ -48,7 +46,7 @@ export default function ContactTabs({ careerPanel, sidebar }: { careerPanel: Rea
           <div className="bg-amber-50 border border-amber-200 rounded-2xl p-5 shadow-sm">
             <h4 className="text-sm font-bold text-amber-800 mb-3">⭐ Why Work With Us</h4>
             <ul className="space-y-1.5 text-xs text-amber-800">
-              {PERKS.map((perk) => (
+              {perks.map((perk) => (
                 <li key={perk} className="flex items-center gap-2">
                   <svg className="size-3.5 text-amber-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" /></svg>
                   {perk}

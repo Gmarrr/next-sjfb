@@ -3,8 +3,8 @@
 import { useEffect, useState } from 'react';
 
 /** Slow zoom-out on the hero background once the page has loaded (sustainability.php). */
-export default function HeroBg() {
+export default function HeroBg({ image }: { image: string }) {
   const [loaded, setLoaded] = useState(false);
   useEffect(() => { const t = setTimeout(() => setLoaded(true), 50); return () => clearTimeout(t); }, []);
-  return <div className={`sustain-hero__bg ${loaded ? 'loaded' : ''}`} />;
+  return <div className={`sustain-hero__bg ${loaded ? 'loaded' : ''}`} style={{ backgroundImage: `url('${image}')` }} />;
 }

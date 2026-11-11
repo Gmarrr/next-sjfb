@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 import { NAV_LINKS } from '@/lib/site';
 
 // Ported from components/navigation.php — shop cart, order tracking and sign-in were removed.
-export default function Header() {
+export default function Header({ logo, cta }: { logo: string; cta: string }) {
   const pathname = usePathname();
   const [hidden, setHidden] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -61,8 +61,8 @@ export default function Header() {
         <nav className="main-nav relative max-w-7xl w-full grid px-4 md:px-6 mx-auto">
           <div className="flex items-center">
             <Link className="flex-none rounded-xl inline-block font-semibold focus:outline-hidden focus:opacity-80" href="/" aria-label="Home">
-              <img src="/assets/icons/square-logo.png" className="logo-big w-auto h-24 transition-all duration-500 hover:scale-110 filter drop-shadow-lg" alt="St. Joseph Fish Brokerage Inc. Logo" />
-              <img src="/assets/icons/square-logo.png" className="lg:hidden logo-small w-auto h-14 transition-all duration-500 hover:scale-110 filter drop-shadow-lg" alt="St. Joseph Fish Brokerage Inc. Logo" />
+              <img src={logo} className="logo-big w-auto h-24 transition-all duration-500 hover:scale-110 filter drop-shadow-lg" alt="St. Joseph Fish Brokerage Inc. Logo" />
+              <img src={logo} className="lg:hidden logo-small w-auto h-14 transition-all duration-500 hover:scale-110 filter drop-shadow-lg" alt="St. Joseph Fish Brokerage Inc. Logo" />
             </Link>
           </div>
 
@@ -89,7 +89,7 @@ export default function Header() {
               href="/contact"
               className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium text-nowrap rounded-xl border border-transparent bg-orange-600 text-white hover:bg-orange-400 focus:outline-hidden focus:bg-orange-400 transition"
             >
-              Get in Touch
+              {cta}
             </Link>
 
             {/* Mobile Navigation Dropdown */}

@@ -1,15 +1,16 @@
-import { YEAR_GALLERY, YEAR_ORDER } from './gallery-data';
+import { mediaUrl } from '@/lib/supabase';
 
 const ArrowRight = () => (<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>);
 const ArrowLeft = () => (<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="m12 5-7 7 7 7" /></svg>);
 
 // Ported from components/company_events.php — one auto-scrolling row per year, alternating direction.
-export default function YearMarquee() {
+// Years/photos come from Admin → Page Content → Events Page → Photo gallery.
+export default function YearMarquee({ gallery }: { gallery: { year: string; images: string[] }[] }) {
   return (
     <div id="company-events" className="py-4">
-      {YEAR_ORDER.filter((y) => YEAR_GALLERY[y]?.length).map((year, index) => {
+      {gallery.filter((g) => g.images?.length).map(({ year, images: raw }, index) => {
         const isRTL = index % 2 !== 0;
-        const images = YEAR_GALLERY[year];
+        const images = raw.map((src) => mediaUrl(src));
         return (
           <div key={year} data-aos="fade-up">
             <div className="flex flex-row items-center justify-between gap-3 max-w-[70rem] mb-3 mx-auto px-4">

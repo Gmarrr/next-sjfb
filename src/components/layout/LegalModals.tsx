@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from 'react';
-import { PrivacyContent, TermsContent } from './legal-content';
+import type { Content } from '@/lib/content/schema';
 
 type ModalId = 'privacy' | 'terms' | null;
 const LegalCtx = createContext<(id: Exclude<ModalId, null>) => void>(() => {});
@@ -12,7 +12,7 @@ const META = {
   terms: { title: 'Terms & Conditions', icon: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z' },
 } as const;
 
-export function LegalModalProvider({ children }: { children: ReactNode }) {
+export function LegalModalProvider({ children, legal }: { children: ReactNode; legal: Content<'legal'> }) {
   const [open, setOpen] = useState<ModalId>(null);
   const close = useCallback(() => setOpen(null), []);
 
@@ -45,7 +45,7 @@ export function LegalModalProvider({ children }: { children: ReactNode }) {
                 </div>
                 <div>
                   <h3 id="legal-modal-title" className="font-bold text-gray-800">{META[open].title}</h3>
-                  <p className="text-xs text-gray-500">Effective Date: June 24, 2026</p>
+                  <p className="text-xs text-gray-500">Effective Date: {legal.effectiveDate}</p>
                 </div>
               </div>
               <button type="button" onClick={close} className="flex justify-center items-center size-8 text-gray-500 hover:bg-gray-100 rounded-full">
@@ -53,9 +53,10 @@ export function LegalModalProvider({ children }: { children: ReactNode }) {
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M18 6L6 18M6 6l12 12" /></svg>
               </button>
             </div>
-            <div className="overflow-y-auto px-4 py-4 text-sm text-gray-700 space-y-5">
-              {open === 'privacy' ? <PrivacyContent /> : <TermsContent />}
-            </div>
+            <div
+              className="legal-content overflow-y-auto px-4 py-4 text-sm text-gray-700"
+              dangerouslySetInnerHTML={{ __html: open === 'privacy' ? legal.privacyHtml : legal.termsHtml }}
+            />
             <div className="flex justify-end items-center gap-x-2 py-3 px-4 border-t border-gray-200">
               <button type="button" onClick={close} className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50">
                 Close

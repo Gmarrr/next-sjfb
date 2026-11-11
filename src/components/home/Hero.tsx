@@ -2,9 +2,12 @@
 
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
+import RichTitle from '@/components/ui/RichTitle';
+
+type HeroProps = { chip: string; eyebrow: string; title: string; text: string; poster: string; video: string };
 
 // Ported from the index.php hero (full-bleed video with mute toggle).
-export default function Hero() {
+export default function Hero({ chip, eyebrow, title, text, poster, video }: HeroProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [ready, setReady] = useState(false);
   const [failed, setFailed] = useState(false);
@@ -33,9 +36,9 @@ export default function Hero() {
   return (
     <section id="hero" role="banner" className="relative w-full h-[100svh] min-h-[560px] max-h-[900px] overflow-hidden bg-slate-900">
       {/* Poster fallback shown until video is ready */}
-      <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('/assets/images/contents/hero_banner1.jpg')" }} />
+      <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url('${poster}')` }} />
 
-      {!failed && (
+      {!failed && video && (
         <video
           ref={videoRef}
           autoPlay
@@ -43,13 +46,13 @@ export default function Hero() {
           loop
           playsInline
           preload="metadata"
-          poster="/assets/images/contents/hero_banner1.jpg"
+          poster={poster}
           onCanPlayThrough={() => setReady(true)}
           onPlaying={() => setReady(true)}
           onError={() => setFailed(true)}
           className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-[1400ms] ${ready ? 'opacity-100' : 'opacity-0'}`}
         >
-          <source src="/assets/videos/Company-Branding.mp4" type="video/mp4" onError={() => setFailed(true)} />
+          <source src={video} type="video/mp4" onError={() => setFailed(true)} />
         </video>
       )}
 
@@ -61,23 +64,22 @@ export default function Hero() {
       <div className="hero-anim animate-fade-in-1 absolute z-10 top-5 sm:top-8 right-5 sm:right-12 lg:right-20">
         <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm text-white text-[.68rem] font-bold uppercase tracking-widest">
           <span className="animate-pulse-dot w-1.5 h-1.5 rounded-full bg-orange-400 shrink-0" />
-          Navotas Fish Port — Live Operations
+          {chip}
         </span>
       </div>
 
       {/* Hero content */}
       <div className="absolute inset-0 z-10 flex flex-col justify-end px-5 sm:px-12 lg:px-20 pb-14 sm:pb-20 lg:pb-24">
         <p className="hero-anim animate-fade-up-1 inline-flex items-center gap-2 text-[.7rem] font-bold uppercase tracking-widest text-orange-400 mb-4">
-          Established 1979 &mdash; Philippines
+          {eyebrow}
         </p>
 
         <h1 className="hero-anim animate-fade-up-2 font-display font-bold text-white leading-[1.05] max-w-[16ch] text-[clamp(2.25rem,6vw,4.75rem)] tracking-tight [text-shadow:0_2px_24px_rgba(0,0,0,.25)]">
-          Isda sa<br />Hapag ng<br />Bawat isa.
+          <RichTitle text={title} hl="text-orange-400" />
         </h1>
 
         <p className="hero-anim animate-fade-up-3 mt-5 text-[clamp(.9375rem,1.2vw,1.0625rem)] font-light text-white/70 max-w-[46ch] leading-relaxed">
-          St. Joseph Fish Brokerage Inc. connects verified Filipino fishermen to institutional markets
-          nationwide — with transparency, integrity, and nearly five decades of trust.
+          {text}
         </p>
 
         <div className="hero-anim animate-fade-up-4 mt-8 flex flex-wrap gap-3.5">
@@ -105,7 +107,7 @@ export default function Hero() {
       </div>
 
       {/* Mute / unmute */}
-      {!failed && (
+      {!failed && video && (
         <button
           type="button"
           onClick={toggleMute}

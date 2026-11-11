@@ -152,7 +152,7 @@
 /* ════════════════════════════════════════════════════════════════
    ABOUT — history.php / core values
    ════════════════════════════════════════════════════════════════ */
-#ourstory-section .story-dropcap::first-letter {
+#ourstory-section .story-dropcap > p:first-child::first-letter, #ourstory-section p.story-dropcap::first-letter {
   font-family: var(--font-display);
   font-weight: 700; font-size: 3.4rem; line-height: .8;
   float: left; padding: .08em .08em 0 0; color: #f97316;
@@ -220,7 +220,7 @@
    SUSTAINABILITY (sustainability.php)
    ════════════════════════════════════════════════════════════════ */
 .sustain-hero { position: relative; height: 90vh; min-height: 600px; overflow: hidden; display: flex; align-items: center; }
-.sustain-hero__bg { position: absolute; inset: 0; background: url('https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1920&q=85') center/cover; transform: scale(1.05); transition: transform 8s ease-out; }
+.sustain-hero__bg { position: absolute; inset: 0; background-position: center; background-size: cover; transform: scale(1.05); transition: transform 8s ease-out; }
 .sustain-hero__bg.loaded { transform: scale(1); }
 .sustain-hero__overlay { position: absolute; inset: 0; background: linear-gradient(135deg, #f97316 0%, #fb923c 60%, #fbbf24 100%); opacity: .88; }
 .pillar-card { position: relative; overflow: hidden; }
@@ -245,7 +245,7 @@
   .img-shadow-r { box-shadow: 24px 24px 0 rgba(26,111,168,.1); }
   .img-shadow-l { box-shadow: -24px 24px 0 rgba(26,122,94,.1); }
 }
-.cta-bg { position: absolute; inset: 0; background: url('/assets/images/contents/hero_banner2.jpg') center/cover; filter: brightness(.35); }
+.cta-bg { position: absolute; inset: 0; background-position: center; background-size: cover; filter: brightness(.35); }
 
 /* ════════════════════════════════════════════════════════════════
    BLOGS (blogs/single.php)
@@ -287,3 +287,35 @@
 ::-webkit-scrollbar-track { background: #FFFFFF; }
 ::-webkit-scrollbar-thumb { background: #9F9F9F; border-radius: 10px; }
 ::-webkit-scrollbar-thumb:hover { background: #D1D1D1; }
+
+/* ════════════════════════════════════════════════════════════════
+   LEGAL TEXT + ADMIN-EDITED RICH TEXT
+   ════════════════════════════════════════════════════════════════ */
+.legal-content > * + * { margin-top: .75rem; }
+.legal-content h4, .legal-content h3, .legal-content h2 { font-weight: 600; color: #111827; margin-top: 1.25rem; margin-bottom: .25rem; }
+.legal-content p { line-height: 1.6; }
+.legal-content ul { list-style: disc; padding-left: 1.5rem; }
+.legal-content ol { list-style: decimal; padding-left: 1.5rem; }
+.legal-content li { margin: .125rem 0; }
+.legal-content a { color: #2563eb; text-decoration: underline; }
+.rich-text p + p { margin-top: 1.25rem; }
+.rich-text a { font-weight: 600; color: #ea580c; text-decoration: underline; text-decoration-color: #fed7aa; text-underline-offset: 2px; }
+.rich-text a:hover { text-decoration-color: #f97316; }
+.rich-text strong { font-weight: 600; }
+.rich-text.strong-orange strong { color: #ea580c; }
+.rich-text.strong-dark strong { color: #0f172a; }
+
+/* ════════════════════════════════════════════════════════════════
+   ADMIN — rich text editor content
+   ════════════════════════════════════════════════════════════════ */
+.admin-prose { font-size: .9375rem; line-height: 1.7; color: #334155; }
+.admin-prose > * + * { margin-top: .75em; }
+.admin-prose h2 { font-size: 1.25rem; font-weight: 700; color: #0f172a; margin-top: 1.2em; }
+.admin-prose h3, .admin-prose h4 { font-size: 1.05rem; font-weight: 700; color: #0f172a; margin-top: 1em; }
+.admin-prose ul { list-style: disc; padding-left: 1.4em; }
+.admin-prose ol { list-style: decimal; padding-left: 1.4em; }
+.admin-prose blockquote { border-left: 3px solid #ea580c; padding-left: 1em; color: #64748b; font-style: italic; }
+.admin-prose a { color: #ea580c; text-decoration: underline; }
+.admin-prose img { max-width: 100%; border-radius: .5rem; }
+.admin-prose img.ProseMirror-selectednode { outline: 3px solid #fb923c; }
+.admin-prose p.is-editor-empty:first-child::before { content: 'Start writing…'; color: #94a3b8; float: left; height: 0; pointer-events: none; }

@@ -11,7 +11,7 @@ type Status = { kind: 'idle' | 'loading' | 'success' | 'error'; message?: string
 
 // Ported from the "General Inquiry" form in contact.php. Submits to /api/contact
 // (saved in Supabase + emailed through Brevo).
-export default function InquiryForm() {
+export default function InquiryForm({ title, text }: { title: string; text: string }) {
   const formRef = useRef<HTMLFormElement>(null);
   const fileInput = useRef<HTMLInputElement>(null);
   const [files, setFiles] = useState<File[]>([]);
@@ -56,8 +56,8 @@ export default function InquiryForm() {
 
   return (
     <div className="bg-white rounded-2xl border border-gray-100 p-8 shadow-sm">
-      <h2 className="font-display text-xl font-bold text-gray-900 mb-1">Send Us a Message</h2>
-      <p className="text-sm text-gray-500 mb-6">For orders, partnership inquiries, supplier registration, or general questions.</p>
+      <h2 className="font-display text-xl font-bold text-gray-900 mb-1">{title}</h2>
+      <p className="text-sm text-gray-500 mb-6">{text}</p>
 
       {status.kind === 'loading' && (
         <div className="mb-4 flex items-center gap-3 p-4 rounded-xl bg-blue-50 border border-blue-200 text-blue-800 text-sm font-medium" role="status">

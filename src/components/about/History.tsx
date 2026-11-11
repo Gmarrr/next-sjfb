@@ -1,9 +1,11 @@
 import Link from 'next/link';
+import RichTitle from '@/components/ui/RichTitle';
+import { mediaUrl } from '@/lib/supabase';
+import type { Content } from '@/lib/content/schema';
 
-// Ported from components/history.php ("Shop seafood" button replaced with "Our Services").
-const PILLS = ['40+ Years Experience', 'Navotas · Malabon · Lucena · Davao', '26 Stalls', 'Fresh produced Seafood'];
-
-export default function History() {
+// Ported from components/history.php — text and photos come from Admin → Page Content → About.
+export default function History({ c }: { c: Content<'about'> }) {
+  const photo = (i: number) => mediaUrl(c.collagePhotos[i] ?? c.collagePhotos[0] ?? '');
   return (
     <>
       {/* ═══════════════════════════════════════
@@ -22,20 +24,20 @@ export default function History() {
 
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-100 border border-orange-200 text-orange-600 text-[.7rem] font-bold uppercase tracking-widest mb-5">
                   <span className="pulse-dot w-2 h-2 rounded-full bg-orange-500 shrink-0"></span>
-                  Established 1979 · Philippines
+                  {c.heroBadge}
                 </div>
 
                 <h1 className="ff-display text-4xl lg:text-5xl font-bold text-slate-900 leading-tight tracking-tight mb-5">
-                  The <em className="text-grad not-italic">Story</em> Behind the<br />Philippines' Most Trusted<br />Fish Broker
+                  <RichTitle text={c.heroTitle} />
                 </h1>
 
                 <p className="text-slate-500 leading-relaxed max-w-lg mb-8">
-                  St. Joseph Fish Brokerage, Inc. (SJFB) has been connecting Filipino fishermen with buyers, traders, and markets for over four decades — built on integrity, hard work, and a deep love for the Philippine seafood industry.
+                  {c.heroText}
                 </p>
 
                 {/* Quick facts pills */}
                 <div className="flex flex-wrap gap-3 mb-8">
-                  {PILLS.map((p) => (
+                  {c.heroPills.map((p) => (
                     <span key={p} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-orange-50 border border-orange-200 text-orange-700 text-xs font-semibold">
                       <svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3"><path d="M5 13l4 4L19 7" /></svg>
                       {p}
@@ -64,35 +66,35 @@ export default function History() {
                 {/* Anchor photo */}
                 <div className="float-wrap absolute top-0 right-0 w-[80%] h-[220px] sm:h-[260px] lg:h-[280px] z-20" style={{ animationDuration: '6.4s' }}>
                   <figure className="photo-card photo-slot w-full h-full rounded-2xl overflow-hidden ring-4 ring-white shadow-[0_25px_60px_rgba(15,23,42,.18)] rotate-[-2deg] transition-transform duration-500 hover:rotate-0 hover:scale-105">
-                    <img src="/assets/images/contents/about_2.jpg" alt="About St. Joseph Fish Brokerage Inc. — Navotas Fish Port Complex" className="w-full h-full object-cover" loading="eager" />
+                    <img src={photo(0)} alt="About St. Joseph Fish Brokerage Inc. — Navotas Fish Port Complex" className="w-full h-full object-cover" loading="eager" />
                   </figure>
                 </div>
 
                 {/* Satellite: portrait, bottom-left, overlapping the anchor */}
                 <div className="float-wrap absolute bottom-4 left-0 w-[58%] sm:w-[54%] h-[190px] sm:h-[230px] lg:h-[260px] z-10" style={{ animationDuration: '7.2s', animationDelay: '.6s' }}>
                   <figure className="photo-card photo-slot w-full h-full rounded-2xl overflow-hidden ring-4 ring-white shadow-[0_25px_60px_rgba(15,23,42,.18)] rotate-[4deg] transition-transform duration-500 hover:rotate-0 hover:scale-105">
-                    <img src="/assets/images/contents/about_4.jpg" alt="Team member selecting fresh seafood" className="w-full h-full object-cover" loading="lazy" />
+                    <img src={photo(1)} alt="Team member selecting fresh seafood" className="w-full h-full object-cover" loading="lazy" />
                   </figure>
                 </div>
 
                 {/* Satellite: small square, top-left, tucked behind the anchor's corner */}
                 <div className="float-wrap absolute top-[-10px] left-[8%] w-[92px] h-[92px] sm:w-[120px] sm:h-[120px] z-30" style={{ animationDuration: '6.8s', animationDelay: '1.1s' }}>
                   <figure className="photo-card photo-slot w-full h-full rounded-2xl overflow-hidden ring-4 ring-white shadow-[0_20px_45px_rgba(15,23,42,.16)] rotate-[-8deg] transition-transform duration-500 hover:rotate-0 hover:scale-110">
-                    <img src="/assets/images/contents/about_1.jpg" alt="Close-up of fresh catch on ice" className="w-full h-full object-cover" loading="lazy" />
+                    <img src={photo(2)} alt="Close-up of fresh catch on ice" className="w-full h-full object-cover" loading="lazy" />
                   </figure>
                 </div>
 
                 {/* Satellite: small square, bottom-right */}
                 <div className="float-wrap absolute bottom-0 right-[2%] w-[100px] h-[100px] sm:w-[136px] sm:h-[136px] z-30" style={{ animationDuration: '6.2s', animationDelay: '1.6s' }}>
                   <figure className="photo-card photo-slot w-full h-full rounded-2xl overflow-hidden ring-4 ring-white shadow-[0_20px_45px_rgba(15,23,42,.16)] rotate-[7deg] transition-transform duration-500 hover:rotate-0 hover:scale-110">
-                    <img src="/assets/images/contents/about_5.jpg" alt="Loading a delivery truck with seafood orders" className="w-full h-full object-cover" loading="lazy" />
+                    <img src={photo(3)} alt="Loading a delivery truck with seafood orders" className="w-full h-full object-cover" loading="lazy" />
                   </figure>
                 </div>
 
                 {/* Satellite: circular accent, mid-right, desktop/tablet only */}
                 <div className="float-wrap absolute top-[40%] right-[-4%] w-[96px] h-[96px] z-20 hidden md:block" style={{ animationDuration: '7s', animationDelay: '.3s' }}>
                   <figure className="photo-card photo-slot w-full h-full rounded-full overflow-hidden ring-4 ring-white shadow-[0_20px_45px_rgba(15,23,42,.16)] transition-transform duration-500 hover:scale-110">
-                    <img src="/assets/images/contents/about_3.jpg" alt="Staff member smiling at work" className="w-full h-full object-cover" loading="lazy" />
+                    <img src={photo(4)} alt="Staff member smiling at work" className="w-full h-full object-cover" loading="lazy" />
                   </figure>
                 </div>
 
@@ -110,14 +112,14 @@ export default function History() {
 
           {/* Ghost year, sitting behind everything */}
           <div className="pointer-events-none absolute top-8 left-1/2 -translate-x-1/2 select-none z-0" aria-hidden="true">
-            <span className="story-ghost-year">1979</span>
+            <span className="story-ghost-year">{c.storyYear}</span>
           </div>
 
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
 
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-100 border border-orange-200 text-orange-600 text-[.7rem] font-bold uppercase tracking-widest mb-4" data-aos="fade-right" data-aos-duration="800">
               <span className="pulse-dot w-2 h-2 rounded-full bg-orange-500 shrink-0"></span>
-              Our Story
+              {c.storyBadge}
             </div>
 
             <div className="grid lg:grid-cols-[1.05fr_1fr] gap-14 lg:gap-20 items-start">
@@ -127,25 +129,20 @@ export default function History() {
 
                 {/* Marker: 1979 */}
                 <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-grad ring-4 ring-white shadow-[0_2px_8px_rgba(249,115,22,.4)]" aria-hidden="true"></div>
-                <span className="ff-display italic text-orange-500 text-sm tracking-wide">1979</span>
+                <span className="ff-display italic text-orange-500 text-sm tracking-wide">{c.storyYear}</span>
 
                 <h2 className="ff-display text-3xl lg:text-4xl font-bold text-slate-900 leading-tight mt-2 mb-6">
-                  A Legacy Built on <span className="text-grad">Hard Work</span>
+                  <RichTitle text={c.storyTitle} />
                 </h2>
 
-                <p className="story-dropcap text-slate-600 leading-relaxed mb-5">
-                  <span className="font-semibold text-slate-900">St. Joseph Fish Brokerage, Inc. (SJFB)</span> is a trusted fish brokerage and seafood trading company in the Philippines, with over four decades of industry experience. Operating in major fish ports such as Navotas Fish Port Complex, Malabon Bayan Market, Lucena Fish Port Complex, and Davao Fish Port Complex, SJFB provides reliable <Link href="/services" className="font-semibold text-orange-600 underline decoration-orange-200 underline-offset-2 hover:decoration-orange-500 transition-colors">fish brokerage services</Link> to traders, suppliers, and buyers nationwide.
-                </p>
-                <p className="text-slate-600 leading-relaxed">
-                  Founded as a family-owned business and officially established in 1979, SJFB continues to grow through integrity, strong partnerships, and a deep commitment to the Philippine seafood industry.
-                </p>
+                <div className="story-dropcap rich-text strong-dark text-slate-600 leading-relaxed" dangerouslySetInnerHTML={{ __html: c.storyText }} />
 
                 {/* Marker: Today */}
                 <div className="relative mt-12 pt-1">
                   <div className="absolute -left-[41px] top-2 w-4 h-4 rounded-full bg-white border-2 border-orange-400" aria-hidden="true"></div>
                   <span className="ff-display italic text-slate-400 text-sm tracking-wide">Today</span>
                   <p className="ff-display text-lg text-slate-900 font-semibold mt-1">
-                    40+ years later — still hand-picking every batch ourselves.
+                    {c.todayText}
                   </p>
                 </div>
               </div>
@@ -155,12 +152,12 @@ export default function History() {
 
                 <div className="absolute -top-7 -left-7 z-20 w-[92px] h-[92px] rounded-full border-2 border-dashed border-orange-400 bg-white flex items-center justify-center -rotate-12 shadow-[0_8px_20px_rgba(15,23,42,.1)]" aria-hidden="true">
                   <span className="ff-display text-[9.5px] font-bold uppercase tracking-wide text-orange-600 text-center leading-tight">
-                    Est.<br />1979<br />Navotas
+                    Est.<br />{c.storyYear}<br />Navotas
                   </span>
                 </div>
 
                 <div className="rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(249,115,22,.14),0_4px_16px_rgba(15,23,42,.07)] rotate-[1.5deg] transition-transform duration-500 hover:rotate-0 group">
-                  <img src="/assets/images/contents/about_6.jpg" alt="St. Joseph Fish Brokerage stall at Navotas Fish Port Complex" loading="lazy" className="w-full h-[380px] object-cover block transition-transform duration-700 group-hover:scale-[1.04]" />
+                  <img src={mediaUrl(c.storyPhoto)} alt="St. Joseph Fish Brokerage stall at Navotas Fish Port Complex" loading="lazy" className="w-full h-[380px] object-cover block transition-transform duration-700 group-hover:scale-[1.04]" />
                   <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-orange-900/15 to-transparent"></div>
                 </div>
               </div>
