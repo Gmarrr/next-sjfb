@@ -16,6 +16,7 @@ export default function ListToolbar({ statuses, placeholder = 'Search…' }: { s
     const sp = new URLSearchParams(params.toString());
     Object.entries(next).forEach(([k, v]) => (v ? sp.set(k, v) : sp.delete(k)));
     sp.delete('page');
+    window.dispatchEvent(new Event('nav-progress:start')); 
     router.replace(`${pathname}${sp.toString() ? `?${sp}` : ''}`);
   };
 

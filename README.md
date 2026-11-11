@@ -1,6 +1,6 @@
 # St. Joseph Fish Brokerage — Company Website
 
-Next.js 15 (App Router) + TypeScript + Tailwind CSS v4, with content in **Supabase** and hosting on **Vercel**.
+Next.js 16 (App Router) + TypeScript + Tailwind CSS v4, with content in **Supabase** and hosting on **Vercel**.
 Ported from the PHP site (`sjfbi-js`) — front pages only. The shop, cart, checkout, accounts, rider and admin
 sections were intentionally left out.
 
@@ -37,7 +37,8 @@ The site renders even before Supabase is set up — dynamic sections just show e
    - `media` (public) — event / blog / market / team photos
    - `inquiry-attachments` (private) — contact form uploads
 3. Run `supabase/admin.sql` the same way (admin accounts, editable page content, write permissions).
-4. **Project Settings → API** → copy into `.env.local`:
+4. Run `supabase/realtime.sql` (turns on live updates — see *Live updates* below).
+5. **Project Settings → API** → copy into `.env.local`:
    - `NEXT_PUBLIC_SUPABASE_URL` — Project URL
    - `NEXT_PUBLIC_SUPABASE_ANON_KEY` — `anon` public key
    - `SUPABASE_SERVICE_ROLE_KEY` — `service_role` key (**secret** — server only, never commit it)
@@ -121,6 +122,22 @@ In title fields, wrap words in `[square brackets]` to highlight them in orange; 
 
 You can still use Supabase → Table Editor directly if you ever need to.
 
+## Live updates, skeletons & page transitions
+
+- **Websocket (Supabase Realtime)** — every page keeps one websocket open to Supabase.
+  - Public pages refresh their data in place when events, blogs, ports, team members or page content change
+    (`src/components/layout/LiveRefresh.tsx` → `/api/revalidate` clears the page cache, then the page refreshes).
+  - The admin panel shows a **Live** pill, pops a toast + bell count when a new contact message or subscriber
+    arrives, and refreshes lists/dashboard automatically (it never refreshes while you're editing a form).
+  - Requires `supabase/realtime.sql` to have been run once. Hook: `src/lib/realtime.ts`.
+- **Skeletons** — every public and admin route has a `loading.tsx` that shows a shimmering placeholder instantly
+  (`src/components/ui/Skeleton.tsx`, `src/components/admin/Skeletons.tsx`).
+- **Progress bar** — an orange bar at the top starts the moment a link is clicked
+  (`src/components/layout/NavigationProgress.tsx`).
+
+`npm run dev` compiles each page the first time you open it, so the first click can take a few seconds.
+The deployed site (`npm run build && npm start`, or Vercel) is pre-built and prefetches links, so it's much faster.
+
 ## Project structure
 
 ```
@@ -130,7 +147,7 @@ src/app/api/        contact form + subscribe endpoints
 src/components/     public sections, layout, and components/admin (forms, uploader, editor)
 src/lib/            Supabase clients, queries, content schema + defaults, admin server actions
 src/middleware.ts   protects /admin and refreshes the login session
-supabase/           schema.sql, admin.sql, seed_events_2023_2026.sql
+supabase/           schema.sql, admin.sql, realtime.sql, seed_events_2023_2026.sql
 scripts/            migrate-from-mysql.mjs
 public/assets/      images (optimised) and the hero video (H.264, 20 MB)
 ```

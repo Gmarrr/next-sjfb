@@ -2,6 +2,7 @@ import Script from 'next/script';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import ScrollAnimations from '@/components/layout/ScrollAnimations';
+import LiveRefresh from '@/components/layout/LiveRefresh';
 import { LegalModalProvider } from '@/components/layout/LegalModals';
 import { getContent } from '@/lib/content/get';
 
@@ -24,6 +25,7 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
         <Footer site={site} />
       </LegalModalProvider>
       <ScrollAnimations />
+      <LiveRefresh />
     </>
   );
 }

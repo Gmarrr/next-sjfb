@@ -4,7 +4,9 @@ import '@fontsource-variable/lexend';
 import '@fontsource/playfair-display/700.css';
 import '@fontsource/playfair-display/700-italic.css';
 import './globals.css';
+import { Suspense } from 'react';
 import { SITE_URL } from '@/lib/site';
+import NavigationProgress from '@/components/layout/NavigationProgress';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -26,7 +28,10 @@ export const viewport: Viewport = { width: 'device-width', initialScale: 1 };
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" dir="ltr" className="scroll-smooth">
-      <body className="bg-white font-sans">{children}</body>
+      <body className="bg-white font-sans">
+        <Suspense fallback={null}><NavigationProgress /></Suspense>
+        {children}
+      </body>
     </html>
   );
 }

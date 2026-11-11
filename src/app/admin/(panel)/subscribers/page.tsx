@@ -23,9 +23,9 @@ export default async function SubscribersPage({ searchParams }: { searchParams: 
       <PageHeader title="Subscribers" description="People who signed up for event updates on the Events page." actions={<a href="/admin/export/subscribers" className={btnSecondary}>⬇ Export CSV</a>} />
       <ListToolbar placeholder="Search email…" />
       {rows.length === 0 ? <EmptyState title="No subscribers yet" /> : (
-        <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
-          <table className="w-full text-sm">
-            <thead className="bg-slate-50 text-left text-xs font-semibold text-slate-500 uppercase tracking-wide"><tr><th className="px-4 py-3">Email</th><th className="px-4 py-3 hidden sm:table-cell">Signed up</th><th className="px-4 py-3 text-right">Actions</th></tr></thead>
+        <div className="bg-white rounded-2xl border border-slate-200/80 shadow-[0_1px_2px_rgba(15,23,42,.04),0_4px_16px_-8px_rgba(15,23,42,.08)] overflow-hidden">
+          <table className="admin-table w-full text-sm">
+            <thead className="bg-slate-50/95 backdrop-blur text-left text-[.7rem] font-bold text-slate-500 uppercase tracking-wider"><tr><th className="px-4 py-3">Email</th><th className="px-4 py-3 hidden sm:table-cell">Signed up</th><th className="px-4 py-3 text-right">Actions</th></tr></thead>
             <tbody className="divide-y divide-slate-100">
               {rows.map((r) => (
                 <tr key={r.id}>

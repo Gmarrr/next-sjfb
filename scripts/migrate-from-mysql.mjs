@@ -175,6 +175,7 @@ if (await tableExists('markets')) {
       await sb.from('market_members').delete().eq('market_id', data.market_id);
       const rows = [];
       for (const mm of members) {
+        if (!mm.member_name || !String(mm.member_name).trim()) continue; // skip unnamed rows
         rows.push({
           market_id: data.market_id, member_name: mm.member_name, position: nn(mm.position),
           image_url: await migrateImage(mm.image_url, 'members'), display_order: Number(mm.display_order) || 0,

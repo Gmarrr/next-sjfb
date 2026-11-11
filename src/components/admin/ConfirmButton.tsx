@@ -23,7 +23,7 @@ export default function ConfirmButton({ action, confirm, label = 'Delete', redir
           start(async () => {
             const res = await action();
             if (!res.ok) { setError(res.error); return; }
-            if (redirectTo) router.push(redirectTo); else router.refresh();
+            if (redirectTo) { window.dispatchEvent(new Event('nav-progress:start')); router.push(redirectTo); } else router.refresh();
           });
         }}
       >

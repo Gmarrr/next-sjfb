@@ -19,7 +19,7 @@ export default function MarketForm({ initial }: { initial: MarketInput }) {
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const res = await save(saveMarket, 'Saved — the Services page is updated.');
-    if (res.ok && isNew && res.id) router.replace(`/admin/markets/${res.id}?created=1`);
+    if (res.ok && isNew && res.id) { window.dispatchEvent(new Event('nav-progress:start')); } if (res.ok && isNew && res.id) router.replace(`/admin/markets/${res.id}?created=1`);
     else if (res.ok) router.refresh();
   };
 

@@ -27,11 +27,11 @@ export default async function DashboardPage({ searchParams }: { searchParams: Pr
   ]);
 
   const stats = [
-    { label: 'Published events', value: pubEvents, sub: `${draftEvents} draft`, href: '/admin/events' },
-    { label: 'Published blogs', value: pubBlogs, sub: `${draftBlogs} draft`, href: '/admin/blogs' },
-    { label: 'Ports', value: markets, sub: 'Services page', href: '/admin/markets' },
-    { label: 'New messages', value: newMsgs, sub: 'from the contact form', href: '/admin/inquiries?status=new', hot: newMsgs > 0 },
-    { label: 'Subscribers', value: subs, sub: 'event updates', href: '/admin/subscribers' },
+    { label: 'Published events', value: pubEvents, sub: `${draftEvents} draft`, href: '/admin/events', color: 'from-orange-500 to-amber-400', icon: 'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z' },
+    { label: 'Published blogs', value: pubBlogs, sub: `${draftBlogs} draft`, href: '/admin/blogs', color: 'from-sky-500 to-cyan-400', icon: 'M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2.5 2.5 0 00-2.5-2.5H15' },
+    { label: 'Ports', value: markets, sub: 'Services page', href: '/admin/markets', color: 'from-emerald-500 to-teal-400', icon: 'M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z' },
+    { label: 'New messages', value: newMsgs, sub: 'from the contact form', href: '/admin/inquiries?status=new', hot: newMsgs > 0, color: 'from-rose-500 to-orange-400', icon: 'M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z' },
+    { label: 'Subscribers', value: subs, sub: 'event updates', href: '/admin/subscribers', color: 'from-violet-500 to-fuchsia-400', icon: 'M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9' },
   ];
 
   const quick = [
@@ -48,9 +48,13 @@ export default async function DashboardPage({ searchParams }: { searchParams: Pr
 
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 mb-6">
         {stats.map((s) => (
-          <Link key={s.label} href={s.href} className={`rounded-2xl border p-4 bg-white hover:-translate-y-0.5 hover:shadow-md transition ${s.hot ? 'border-orange-300 ring-2 ring-orange-100' : 'border-slate-200'}`}>
-            <p className={`text-2xl font-extrabold ${s.hot ? 'text-orange-600' : 'text-slate-900'}`}>{s.value}</p>
-            <p className="text-sm font-semibold text-slate-700 mt-1">{s.label}</p>
+          <Link key={s.label} href={s.href} className={`group relative overflow-hidden rounded-2xl border p-4 bg-white shadow-[0_1px_2px_rgba(15,23,42,.04),0_4px_16px_-8px_rgba(15,23,42,.08)] hover:-translate-y-0.5 hover:shadow-lg transition ${s.hot ? 'border-orange-300 ring-2 ring-orange-100' : 'border-slate-200/80'}`}>
+            <span className={`absolute -right-6 -top-6 size-20 rounded-full bg-gradient-to-br ${s.color} opacity-10 group-hover:opacity-20 transition`} />
+            <span className={`inline-flex size-9 items-center justify-center rounded-xl bg-gradient-to-br ${s.color} text-white shadow-sm`}>
+              <svg className="size-[18px]" fill="none" stroke="currentColor" strokeWidth="1.9" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d={s.icon} /></svg>
+            </span>
+            <p className={`text-[1.7rem] leading-none font-extrabold mt-3 ${s.hot ? 'text-orange-600' : 'text-slate-900'}`}>{s.value}</p>
+            <p className="text-sm font-semibold text-slate-700 mt-1.5">{s.label}</p>
             <p className="text-xs text-slate-400">{s.sub}</p>
           </Link>
         ))}
@@ -77,7 +81,7 @@ export default async function DashboardPage({ searchParams }: { searchParams: Pr
               ))}
             </ul>
           )}
-          <Link href="/admin/inquiries" className="inline-block text-sm font-semibold text-orange-600 hover:underline">View all messages →</Link>
+          <Link href="/admin/inquiries" className="inline-block mt-4 text-sm font-semibold text-orange-600 hover:underline">View all messages →</Link>
         </Card>
 
         <Card title="Quick actions">

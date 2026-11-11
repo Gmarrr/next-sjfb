@@ -319,3 +319,36 @@
 .admin-prose img { max-width: 100%; border-radius: .5rem; }
 .admin-prose img.ProseMirror-selectednode { outline: 3px solid #fb923c; }
 .admin-prose p.is-editor-empty:first-child::before { content: 'Start writing…'; color: #94a3b8; float: left; height: 0; pointer-events: none; }
+
+/* ════════════════════════════════════════════════════════════════
+   LOADING SKELETONS + NAVIGATION PROGRESS BAR
+   ════════════════════════════════════════════════════════════════ */
+.sk {
+  position: relative; overflow: hidden;
+  background-color: #eef1f5;
+  border-radius: .5rem;
+}
+.sk::after {
+  content: ''; position: absolute; inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.65), transparent);
+  animation: sk-shimmer 1.4s ease-in-out infinite;
+}
+.sk-dark { background-color: rgba(255,255,255,.12); }
+.sk-dark::after { background: linear-gradient(90deg, transparent, rgba(255,255,255,.18), transparent); }
+.sk-orange { background-color: rgba(255,255,255,.25); }
+@keyframes sk-shimmer { 100% { transform: translateX(100%); } }
+@media (prefers-reduced-motion: reduce) { .sk::after { animation: none; } }
+
+.nav-progress {
+  position: fixed; top: 0; left: 0; height: 3px; z-index: 100000;
+  background: linear-gradient(90deg, #ea580c, #f97316, #fbbf24);
+  box-shadow: 0 0 10px rgba(249,115,22,.6), 0 0 4px rgba(249,115,22,.5);
+  transition: width .25s ease, opacity .3s ease;
+  pointer-events: none;
+}
+
+/* ADMIN — toasts, tables */
+.admin-toast { animation: admin-toast-in .35s cubic-bezier(.22,.61,.36,1) both; }
+@keyframes admin-toast-in { from { opacity: 0; transform: translateY(12px) scale(.97); } to { opacity: 1; transform: none; } }
+.admin-table tbody tr { transition: background-color .15s; }

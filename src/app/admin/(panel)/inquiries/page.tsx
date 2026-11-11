@@ -29,7 +29,7 @@ export default async function InquiriesPage({ searchParams }: { searchParams: Pr
       {rows.length === 0 ? (
         <EmptyState title="No messages here" text={status ? 'Try another filter.' : 'New contact form messages will appear here.'} />
       ) : (
-        <div className="bg-white rounded-2xl border border-slate-200 divide-y divide-slate-100 overflow-hidden">
+        <div className="bg-white rounded-2xl border border-slate-200/80 shadow-[0_1px_2px_rgba(15,23,42,.04),0_4px_16px_-8px_rgba(15,23,42,.08)] divide-y divide-slate-100 overflow-hidden">
           {rows.map((m) => (
             <Link key={m.id} href={`/admin/inquiries/${m.id}`} className={`flex items-center gap-3 px-4 py-3 hover:bg-orange-50/40 ${m.status === 'new' ? 'bg-orange-50/20' : ''}`}>
               <span className={`size-2 rounded-full shrink-0 ${m.status === 'new' ? 'bg-orange-500' : 'bg-transparent'}`} />
