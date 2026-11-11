@@ -43,24 +43,11 @@ The site renders even before Supabase is set up — dynamic sections just show e
    - `NEXT_PUBLIC_SUPABASE_ANON_KEY` — `anon` public key
    - `SUPABASE_SERVICE_ROLE_KEY` — `service_role` key (**secret** — server only, never commit it)
 
-### Bring over your existing content (one time)
+### Sample events
 
-```bash
-# add the MIGRATE_* values to .env.local first (old MySQL login + path to the PHP project)
-npm run migrate
-```
-
-`scripts/migrate-from-mysql.mjs` copies events (with gallery), blogs, markets (+ product names) and team
-members from MySQL, and uploads their images to the `media` bucket. Images are read from your local
-`sjfbi-js/uploads` folder, falling back to the live site. It is safe to re-run.
-
-> Your MySQL host must allow remote connections from your computer. If it doesn't, run the script on a machine
-> that can reach the database, or export tables as CSV and import them in Supabase → Table Editor.
-
-Then run **`supabase/seed_events_2023_2026.sql`** in the SQL Editor. It adds the 2023–2026 company events
+Run **`supabase/seed_events_2023_2026.sql`** in the SQL Editor. It adds the 2023–2026 company events
 (Kick-Off, Valentine's, Team Building, Halloween, Year-End, Anniversary) linked to the photos already in
-`public/assets/images/EventsYYYY`. Events without photos are added as drafts. Existing slugs are skipped,
-so run it **after** the migration.
+`public/assets/images/EventsYYYY`. Events without photos are added as drafts. Existing slugs are skipped.
 
 ## 3. Deploy to Vercel
 
@@ -79,7 +66,6 @@ so run it **after** the migration.
    | `MAIL_FROM_NAME` | `St. Joseph Fish Brokerage Inc.` |
    | `ADMIN_EMAIL` | where inquiry notifications go |
 
-   Do **not** add the `MIGRATE_*` values to Vercel.
 4. **Deploy**. Then **Settings → Domains** → add `fishbrokers.net` and `www.fishbrokers.net` and update DNS at
    your domain registrar as Vercel instructs.
 
@@ -148,7 +134,6 @@ src/components/     public sections, layout, and components/admin (forms, upload
 src/lib/            Supabase clients, queries, content schema + defaults, admin server actions
 src/middleware.ts   protects /admin and refreshes the login session
 supabase/           schema.sql, admin.sql, realtime.sql, seed_events_2023_2026.sql
-scripts/            migrate-from-mysql.mjs
 public/assets/      images (optimised) and the hero video (H.264, 20 MB)
 ```
 
