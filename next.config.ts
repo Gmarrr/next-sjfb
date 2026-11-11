@@ -2,6 +2,9 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
+  // Lets you open the dev server from other PCs/phones on the office network (npm run dev only).
+  allowedDevOrigins: ['192.168.6.60'],
+
   // Old PHP URLs → new routes, so existing links and Google results keep working.
   async redirects() {
     return [
