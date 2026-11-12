@@ -13,7 +13,7 @@ export default function ForgotForm() {
     e.preventDefault();
     setState('sending');
     const { error: err } = await getBrowserSupabase().auth.resetPasswordForEmail(email.trim(), {
-      redirectTo: `${window.location.origin}/admin/auth/callback?next=/admin/account?reset=1`,
+      redirectTo: `${window.location.origin}/admin/auth/callback?next=${encodeURIComponent('/admin/account?reset=1')}`,
     });
     if (err) { setState('error'); setError(err.message); return; }
     setState('sent');

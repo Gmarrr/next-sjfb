@@ -24,6 +24,12 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
           That account isn&apos;t allowed to use the admin panel. Ask the site owner to add you.
         </div>
       )}
+      {error === 'link' && (
+        <div className="mb-4 rounded-lg bg-amber-50 border border-amber-200 text-amber-800 text-sm p-3">
+          That email link is invalid or has expired. Links work once and expire after 1 hour —{' '}
+          <a href="/admin/forgot-password" className="font-semibold underline">request a new one</a>.
+        </div>
+      )}
       <LoginForm next={next?.startsWith('/admin') ? next : '/admin'} />
     </>
   );

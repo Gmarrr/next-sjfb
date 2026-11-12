@@ -5,6 +5,9 @@ import { createSessionClient } from '@/lib/supabase/server';
 export async function GET(request: NextRequest) {
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get('code');
+  const tokenHash = searchParams.get('token_hash');
+  // Email template links ({{ .TokenHash }}) go to the confirm page, which needs a button click.
+  if (tokenHash) return NextResponse.redirect(`${origin}/admin/reset?token_hash=${encodeURIComponent(tokenHash)}&type=${encodeURIComponent(searchParams.get('type') ?? 'recovery')}`);
   const next = searchParams.get('next') ?? '/admin';
   if (code) {
     const supabase = await createSessionClient();

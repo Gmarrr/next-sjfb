@@ -1,6 +1,6 @@
 import 'server-only';
 
-const esc = (s: string) => s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
+import { emailBaseUrl, emailBox, emailButton, emailFieldTable, emailLayout, emailNote, escHtml } from './email-layout';
 
 /** Sends a transactional email through Brevo. Returns false (never throws) if not configured or on failure. */
 export async function sendBrevoEmail(opts: { to: string; subject: string; html: string; replyTo?: { email: string; name?: string } }): Promise<boolean> {
@@ -28,16 +28,18 @@ export async function sendBrevoEmail(opts: { to: string; subject: string; html: 
 }
 
 export function inquiryEmailHtml(fields: Record<string, string>, attachmentLinks: { name: string; url: string }[]): string {
-  const rows = Object.entries(fields)
-    .map(([k, v]) => `<tr><td style="padding:6px 12px;color:#6b7280;font-size:13px;vertical-align:top;white-space:nowrap">${esc(k)}</td><td style="padding:6px 12px;color:#111827;font-size:14px;white-space:pre-wrap">${esc(v || '—')}</td></tr>`)
-    .join('');
   const files = attachmentLinks.length
-    ? `<p style="margin:16px 0 4px;font-weight:600">Attachments (links valid for 7 days)</p><ul>${attachmentLinks.map((a) => `<li><a href="${esc(a.url)}">${esc(a.name)}</a></li>`).join('')}</ul>`
+    ? emailBox('Attachments (links valid for 7 days)', attachmentLinks.map((a) => `<p style="margin:4px 0;font-size:13px;"><a href="${escHtml(a.url)}" style="color:#ea580c;">${escHtml(a.name)}</a></p>`).join(''))
     : '';
-  return `<div style="font-family:Arial,sans-serif;max-width:640px">
-    <h2 style="color:#ea580c;margin:0 0 12px">New website inquiry</h2>
-    <table style="border-collapse:collapse;width:100%;background:#fafafa;border-radius:8px">${rows}</table>
-    ${files}
-    <p style="color:#9ca3af;font-size:12px;margin-top:20px">Saved in Supabase → table "inquiries". Reply directly to this email to answer the sender.</p>
-  </div>`;
+  return emailLayout({
+    title: 'New website inquiry',
+    sub: escHtml(fields.Subject ?? ''),
+    preheader: `${fields.Name ?? ''}: ${fields.Subject ?? ''}`,
+    body:
+      emailFieldTable(fields) +
+      files +
+      emailButton('Open in admin', `${emailBaseUrl()}/admin/inquiries`) +
+      emailNote('Tip:', 'Reply to this email to answer the sender directly.'),
+    footerNote: 'Sent by the contact form on your website.',
+  });
 }

@@ -11,6 +11,7 @@ export default function ScrollAnimations() {
   const pathname = usePathname();
 
   useEffect(() => {
+    document.documentElement.classList.add('aos-ready');
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {

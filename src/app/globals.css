@@ -115,6 +115,10 @@
 [data-aos='fade-left'] { transform: translate3d(60px, 0, 0); }
 [data-aos='zoom-in'] { transform: scale(.85); }
 [data-aos].aos-animate { opacity: 1; transform: none; }
+/* Safety net: if the page's JavaScript can't run (blocked, slow, error), show everything after 2.5s
+   instead of leaving a blank page. ScrollAnimations adds .aos-ready to <html> once it's running. */
+html:not(.aos-ready) [data-aos] { animation: aos-fallback .6s ease 2.5s forwards; }
+@keyframes aos-fallback { to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) {
   [data-aos] { opacity: 1 !important; transform: none !important; transition: none !important; }
 }
