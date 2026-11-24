@@ -1,7 +1,7 @@
 # St. Joseph Fish Brokerage — Company Website
 
 Next.js 16 (App Router) + TypeScript + Tailwind CSS v4, with content in **Supabase** and hosting on **Vercel**.
-Ported from the PHP site (`sjfbi-js`) — front pages only. The shop, cart, checkout, accounts, rider and admin
+Ported from the PHP site (`c2c`) — front pages only. The shop, cart, checkout, accounts, rider and admin
 sections were intentionally left out.
 
 | Page | Route | Content source |
@@ -60,8 +60,13 @@ Run **`supabase/seed_events_2023_2026.sql`** in the SQL Editor. It adds the 2023
    | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase publishable key |
    | `SUPABASE_SERVICE_ROLE_KEY` | Supabase secret key |
    | `NEXT_PUBLIC_SITE_URL` | `https://fishbrokers.net` |
+<<<<<<< HEAD
    | `RESEND_API_KEY` | Resend API key (contact-form emails) |
    | `MAIL_FROM` | an address on your Resend-verified domain, e.g. `website@fishbrokers.net` |
+=======
+   | `RESEND_API_KEY` | your Resend key |
+   | `MAIL_FROM` | a sender verified in Brevo, e.g. `marketing@fishbrokers.net` |
+>>>>>>> 5edccde6ca52c3d13eb3a6ed94ed51dc06ea6846
    | `MAIL_FROM_NAME` | `St. Joseph Fish Brokerage Inc.` |
    | `ADMIN_EMAIL` | where contact-form notifications go |
 
