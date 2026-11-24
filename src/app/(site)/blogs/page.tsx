@@ -30,7 +30,7 @@ export default async function BlogsPage({ searchParams }: Props) {
 
       <div className="text-center mb-12" data-aos="fade-up">
         <span className="section-eyebrow justify-center">Latest Insights</span>
-        <h2 className="font-display text-3xl md:text-4xl font-bold text-gray-900">Blogs / News &amp; Updates</h2>
+        <h1 className="font-display text-3xl md:text-4xl font-bold text-gray-900">Blogs / News &amp; Updates</h1>
         <p className="text-gray-500 mt-3 max-w-xl mx-auto">Stay informed with the latest news from St. Joseph and the Philippine fishing industry.</p>
       </div>
 
@@ -63,7 +63,7 @@ export default async function BlogsPage({ searchParams }: Props) {
                       <p className="text-xs text-gray-500">{fmtLong(blog.blog_published_date)}</p>
                     </div>
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-orange-600 transition-colors line-clamp-2">{blog.blog_title}</h3>
+                  <h2 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-orange-600 transition-colors line-clamp-2">{blog.blog_title}</h2>
                   <p className="text-gray-600 mb-4 line-clamp-3">{blog.blog_excerpt ?? ''}</p>
                   <div className="flex items-center text-orange-600 font-medium">
                     Read More
@@ -89,7 +89,7 @@ export default async function BlogsPage({ searchParams }: Props) {
       ) : (
         <div className="text-center py-20">
           <svg className="mx-auto h-16 w-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2.5 2.5 0 00-2.5-2.5H15" /></svg>
-          <h3 className="mt-4 text-lg font-medium text-gray-900">No blog posts yet</h3>
+          <h2 className="mt-4 text-lg font-medium text-gray-900">No blog posts yet</h2>
           <p className="mt-2 text-gray-500">Check back soon for updates and news from St. Joseph Fish Brokerage Inc.</p>
         </div>
       )}

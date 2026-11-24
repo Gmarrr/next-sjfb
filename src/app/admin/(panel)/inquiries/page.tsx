@@ -35,9 +35,9 @@ export default async function InquiriesPage({ searchParams }: { searchParams: Pr
               <span className={`size-2 rounded-full shrink-0 ${m.status === 'new' ? 'bg-orange-500' : 'bg-transparent'}`} />
               <div className="min-w-0 flex-1">
                 <p className={`text-sm truncate ${m.status === 'new' ? 'font-bold text-slate-900' : 'font-medium text-slate-700'}`}>{m.subject}</p>
-                <p className="text-xs text-slate-500 truncate">{m.first_name} {m.last_name} · {m.email}{m.sender_type ? ` · ${m.sender_type}` : ''}{m.attachments?.length ? ` · 📎 ${m.attachments.length}` : ''}</p>
+                <p className="text-xs text-slate-500 truncate">{m.first_name} {m.last_name} · {m.email}{m.sender_type ? ` · ${m.sender_type}` : ''}{m.attachments?.length ? ` · ${m.attachments.length} attachment${m.attachments.length > 1 ? 's' : ''}` : ''}</p>
               </div>
-              <span className="text-xs text-slate-400 shrink-0 hidden sm:block">{fmtShort(m.created_at)}</span>
+              <span className="text-xs text-slate-500 shrink-0 hidden sm:block">{fmtShort(m.created_at)}</span>
               <Badge value={m.status} />
             </Link>
           ))}

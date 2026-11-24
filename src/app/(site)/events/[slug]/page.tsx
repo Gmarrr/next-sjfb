@@ -105,7 +105,7 @@ export default async function EventPage({ params }: Props) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-4">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
             <div className="lg:col-span-2" data-aos="fade-up">
-              <Link href="/events" className="inline-flex items-center gap-1.5 text-sm text-orange-600 font-semibold mb-6 hover:underline">
+              <Link href="/events" className="inline-flex items-center gap-1.5 py-2 text-sm text-orange-600 font-semibold mb-4 hover:underline">
                 <svg className="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
                 Back to Events
               </Link>
@@ -118,7 +118,7 @@ export default async function EventPage({ params }: Props) {
                 <div id="event-gallery" className="scroll-mt-28 mt-12">
                   <div className="flex items-end justify-between gap-4 mb-4">
                     <h3 className="font-display text-xl font-bold text-gray-900">Photo Gallery</h3>
-                    <span className="text-sm text-gray-400">{gallery.length} photo{gallery.length > 1 ? 's' : ''}</span>
+                    <span className="text-sm text-gray-500">{gallery.length} photo{gallery.length > 1 ? 's' : ''}</span>
                   </div>
                   <div className="event-gallery-grid">
                     {gallery.map((img, i) => {
@@ -171,12 +171,12 @@ export default async function EventPage({ params }: Props) {
                 )}
 
                 <div className="mt-6 pt-6 border-t border-gray-200">
-                  <p className="text-xs font-bold uppercase tracking-wide text-gray-400 mb-3">Share This Event</p>
+                  <p className="text-xs font-bold uppercase tracking-wide text-gray-500 mb-3">Share This Event</p>
                   <div className="flex items-center gap-2">
-                    <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`} target="_blank" rel="noopener" aria-label="Share on Facebook" className="inline-flex items-center justify-center size-9 rounded-full bg-white border border-gray-200 text-gray-500 hover:text-orange-600 hover:border-orange-200 transition-colors">
+                    <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`} target="_blank" rel="noopener" aria-label="Share on Facebook" className="inline-flex items-center justify-center size-11 rounded-full bg-white border border-gray-200 text-gray-600 hover:text-orange-600 hover:border-orange-200 transition-colors">
                       <svg className="size-4" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54v-2.89h2.54V9.797c0-2.506 1.493-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562v1.875h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.991 22 12z" /></svg>
                     </a>
-                    <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(event.event_title)}`} target="_blank" rel="noopener" aria-label="Share on X" className="inline-flex items-center justify-center size-9 rounded-full bg-white border border-gray-200 text-gray-500 hover:text-orange-600 hover:border-orange-200 transition-colors">
+                    <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(event.event_title)}`} target="_blank" rel="noopener" aria-label="Share on X" className="inline-flex items-center justify-center size-11 rounded-full bg-white border border-gray-200 text-gray-600 hover:text-orange-600 hover:border-orange-200 transition-colors">
                       <svg className="size-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>
                     </a>
                   </div>

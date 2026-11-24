@@ -39,7 +39,7 @@ const DropZone = ({ onFiles, multiple, accept, busy, hint }: { onFiles: (f: File
     >
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ea580c" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="8.5" cy="8.5" r="1.5" /><path d="M21 15l-5-5L5 21" /></svg>
       <span className="text-sm font-semibold text-orange-700">{busy ? `Uploading ${busy}…` : multiple ? 'Click or drag photos here' : 'Click or drag a file here'}</span>
-      <span className="text-xs text-slate-400">{hint}</span>
+      <span className="text-xs text-slate-500">{hint}</span>
       <input ref={input} type="file" accept={accept} multiple={multiple} className="hidden" onChange={(e) => { onFiles(Array.from(e.target.files ?? [])); e.target.value = ''; }} />
     </div>
   );
@@ -66,7 +66,7 @@ export function ImageField({ value, onChange, folder, accept = 'image/*' }: Comm
               Replace
               <input type="file" accept={accept} className="hidden" onChange={async (e) => { const f = e.target.files?.[0]; e.target.value = ''; if (f) { const [p] = await upload([f]); if (p) onChange(p); } }} />
             </label>
-            <button type="button" onClick={() => onChange('')} className="text-xs font-semibold text-red-600 hover:underline text-left">Remove</button>
+            <button type="button" onClick={() => onChange('')} className="min-h-8 text-xs font-semibold text-red-700 hover:underline text-left">Remove</button>
             {busy > 0 && <span className="text-xs text-slate-500">Uploading…</span>}
           </div>
         </div>
@@ -74,7 +74,7 @@ export function ImageField({ value, onChange, folder, accept = 'image/*' }: Comm
         <DropZone accept={accept} busy={busy} hint={isVideo ? 'MP4 (H.264) recommended' : 'JPG, PNG, WebP · large photos are resized automatically'} onFiles={async (f) => { const [p] = await upload(f.slice(0, 1)); if (p) onChange(p); }} />
       )}
       {error && <p className="text-xs text-red-600">{error}</p>}
-      <button type="button" onClick={() => setShowUrl(!showUrl)} className="text-[.7rem] text-slate-400 hover:text-slate-600">{showUrl ? 'Hide' : 'Or paste a URL / path'}</button>
+      <button type="button" onClick={() => setShowUrl(!showUrl)} className="min-h-8 text-xs text-slate-600 hover:text-slate-900 hover:underline">{showUrl ? 'Hide' : 'Or paste a URL / path'}</button>
       {showUrl && <input className="w-full py-1.5 px-2.5 rounded-md border border-slate-200 text-xs" value={value} onChange={(e) => onChange(e.target.value)} placeholder="https://… or /assets/… or events/photo.jpg" />}
     </div>
   );
@@ -98,12 +98,12 @@ export function ImagesField({ value, onChange, folder }: Common & { value: strin
             <div key={p + i} className="group relative aspect-square rounded-lg overflow-hidden border border-slate-200 bg-slate-100">
               <img src={mediaUrl(p)} alt="" className="w-full h-full object-cover" loading="lazy" />
               <span className="absolute left-1 top-1 text-[10px] font-bold bg-black/55 text-white rounded px-1.5">{i + 1}</span>
-              <div className="absolute inset-x-0 bottom-0 flex justify-between gap-1 p-1 bg-gradient-to-t from-black/60 to-transparent opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition">
+              <div className="absolute inset-x-0 bottom-0 flex justify-between gap-1 p-1 bg-gradient-to-t from-black/60 to-transparent opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:group-focus-within:opacity-100 transition">
                 <div className="flex gap-1">
-                  <button type="button" onClick={() => move(i, -1)} disabled={i === 0} className="size-6 rounded bg-white/90 text-slate-700 text-xs font-bold disabled:opacity-40" title="Move left">‹</button>
-                  <button type="button" onClick={() => move(i, 1)} disabled={i === value.length - 1} className="size-6 rounded bg-white/90 text-slate-700 text-xs font-bold disabled:opacity-40" title="Move right">›</button>
+                  <button type="button" onClick={() => move(i, -1)} disabled={i === 0} className="size-8 rounded-md bg-white/95 text-slate-800 text-sm font-bold shadow disabled:opacity-40" title="Move left" aria-label={`Move photo ${i + 1} left`}>‹</button>
+                  <button type="button" onClick={() => move(i, 1)} disabled={i === value.length - 1} className="size-8 rounded-md bg-white/95 text-slate-800 text-sm font-bold shadow disabled:opacity-40" title="Move right" aria-label={`Move photo ${i + 1} right`}>›</button>
                 </div>
-                <button type="button" onClick={() => onChange(value.filter((_, j) => j !== i))} className="size-6 rounded bg-red-600 text-white text-sm font-bold" title="Remove">×</button>
+                <button type="button" onClick={() => onChange(value.filter((_, j) => j !== i))} className="size-8 rounded-md bg-red-600 text-white text-base font-bold shadow" title="Remove" aria-label={`Remove photo ${i + 1}`}>×</button>
               </div>
             </div>
           ))}

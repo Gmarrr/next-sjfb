@@ -36,7 +36,7 @@ function LivePill({ status }: { status: LiveStatus }) {
     offline: { dot: 'bg-slate-400', ring: 'bg-slate-300', text: 'Offline', cls: 'text-slate-500 bg-slate-50 border-slate-200', title: 'Live updates unavailable — run supabase/realtime.sql, or check your connection' },
   }[status];
   return (
-    <span title={map.title} className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[.7rem] font-bold uppercase tracking-wide ${map.cls}`}>
+    <span role="status" title={map.title} aria-label={`Live updates: ${map.text}`} className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[.7rem] font-bold uppercase tracking-wide ${map.cls}`}>
       <span className="relative flex size-2">
         {status === 'live' && <span className={`absolute inline-flex h-full w-full animate-ping rounded-full opacity-60 ${map.ring}`} />}
         <span className={`relative inline-flex size-2 rounded-full ${map.dot}`} />
@@ -53,6 +53,13 @@ export default function AdminShell({ children, admin, newMessages }: Props) {
   const [toasts, setToasts] = useState<Toast[]>([]);
   const [unread, setUnread] = useState(newMessages);
   useEffect(() => setOpen(false), [pathname]);
+  // Close the mobile menu with Escape
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(false); };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [open]);
   useEffect(() => setUnread(newMessages), [newMessages]);
 
   const pushToast = useCallback((t: Omit<Toast, 'id'>) => {
@@ -81,7 +88,7 @@ export default function AdminShell({ children, admin, newMessages }: Props) {
   const name = admin.full_name || admin.email.split('@')[0];
 
   const sidebar = (
-    <nav className="flex flex-col h-full">
+    <nav aria-label="Admin" className="flex flex-col h-full">
       <Link href="/admin" className="flex items-center gap-2.5 px-5 h-16 border-b border-slate-100 shrink-0">
         <img src="/assets/icons/logo.svg" alt="" className="size-8" />
         <div className="leading-tight">
@@ -91,15 +98,15 @@ export default function AdminShell({ children, admin, newMessages }: Props) {
       </Link>
       <div className="flex-1 overflow-y-auto px-3 py-4 space-y-0.5">
         {NAV.map((item, i) => {
-          if ('section' in item) return <p key={i} className="px-3 pt-5 pb-1.5 text-[.65rem] font-bold uppercase tracking-widest text-slate-400">{item.section}</p>;
+          if ('section' in item) return <p key={i} className="px-3 pt-5 pb-1.5 text-[.65rem] font-bold uppercase tracking-widest text-slate-500">{item.section}</p>;
           if ('owner' in item && item.owner && admin.role !== 'owner') return null;
           const on = active(item.href);
           return (
-            <Link key={item.href} href={item.href} className={`relative flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition ${on ? 'bg-gradient-to-r from-orange-50 to-amber-50/40 text-orange-700 shadow-[inset_0_0_0_1px_rgba(251,146,60,.25)]' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'}`}>
-              {on && <span className="absolute -left-3 top-1/2 -translate-y-1/2 h-6 w-1 rounded-r-full bg-orange-500" />}
+            <Link key={item.href} href={item.href} aria-current={on ? 'page' : undefined} className={`relative flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition ${on ? 'bg-gradient-to-r from-orange-50 to-amber-50/40 text-orange-700 shadow-[inset_0_0_0_1px_rgba(251,146,60,.25)]' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'}`}>
+              {on && <span aria-hidden="true" className="absolute -left-3 top-1/2 -translate-y-1/2 h-6 w-1 rounded-r-full bg-orange-500" />}
               {I(item.icon)}
               <span className="flex-1">{item.label}</span>
-              {'badge' in item && item.badge && unread > 0 && <span className="min-w-5 h-5 px-1.5 rounded-full bg-orange-600 text-white text-[.7rem] font-bold flex items-center justify-center">{unread}</span>}
+              {'badge' in item && item.badge && unread > 0 && <span aria-label={`${unread} new`} className="min-w-5 h-5 px-1.5 rounded-full bg-orange-600 text-white text-[.7rem] font-bold flex items-center justify-center">{unread}</span>}
             </Link>
           );
         })}
@@ -109,11 +116,11 @@ export default function AdminShell({ children, admin, newMessages }: Props) {
           <span className="size-8 rounded-full bg-gradient-to-br from-orange-500 to-amber-400 text-white text-xs font-bold flex items-center justify-center shrink-0">{name.charAt(0).toUpperCase()}</span>
           <span className="flex-1 min-w-0">
             <span className="block font-semibold truncate text-slate-800">{name}</span>
-            <span className="block text-[.7rem] text-slate-400 capitalize">{admin.role}</span>
+            <span className="block text-[.7rem] text-slate-600 capitalize">{admin.role}</span>
           </span>
         </Link>
         <form action={signOut}>
-          <button type="submit" className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium text-slate-500 hover:bg-red-50 hover:text-red-600">
+          <button type="submit" className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-red-50 hover:text-red-700">
             {I('M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1')}Sign out
           </button>
         </form>
@@ -123,45 +130,51 @@ export default function AdminShell({ children, admin, newMessages }: Props) {
 
   return (
     <div className="min-h-screen bg-[radial-gradient(ellipse_at_top_right,rgba(251,146,60,.07),transparent_45%)] bg-slate-50">
+      <a href="#admin-main" className="skip-link">Skip to main content</a>
       <aside className="hidden lg:block fixed inset-y-0 left-0 w-64 bg-white border-r border-slate-200/80 z-30">{sidebar}</aside>
 
       {/* Mobile top bar + drawer */}
       <header className="lg:hidden sticky top-0 z-30 flex items-center justify-between h-14 px-4 bg-white/95 backdrop-blur border-b border-slate-200">
-        <Link href="/admin" className="flex items-center gap-2"><img src="/assets/icons/logo.svg" alt="" className="size-7" /><span className="text-sm font-extrabold">SJFB Admin</span></Link>
+        <Link href="/admin" className="flex items-center gap-2 py-2"><img src="/assets/icons/logo.svg" alt="" className="size-7" /><span className="text-sm font-extrabold">SJFB Admin</span></Link>
         <div className="flex items-center gap-2">
           <LivePill status={status} />
-          <button type="button" onClick={() => setOpen(true)} className="size-9 rounded-lg border border-slate-200 flex items-center justify-center" aria-label="Open menu">
-            <svg className="size-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18" /></svg>
+          <button type="button" onClick={() => setOpen(true)} className="size-11 rounded-xl border border-slate-200 flex items-center justify-center" aria-label="Open menu" aria-expanded={open}>
+            <svg aria-hidden="true" className="size-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18" /></svg>
           </button>
         </div>
       </header>
       {open && (
-        <div className="lg:hidden fixed inset-0 z-40">
+        <div className="lg:hidden fixed inset-0 z-40" role="dialog" aria-modal="true" aria-label="Admin menu">
           <div className="absolute inset-0 bg-black/40" onClick={() => setOpen(false)} />
-          <aside className="absolute inset-y-0 left-0 w-72 bg-white shadow-xl">{sidebar}</aside>
+          <aside className="absolute inset-y-0 left-0 w-72 max-w-[85vw] bg-white shadow-xl">
+            <button type="button" onClick={() => setOpen(false)} aria-label="Close menu" className="absolute top-3 right-3 z-10 size-10 rounded-xl flex items-center justify-center text-slate-600 hover:bg-slate-100">
+              <svg aria-hidden="true" className="size-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12" /></svg>
+            </button>
+            {sidebar}
+          </aside>
         </div>
       )}
 
       <div className="lg:pl-64">
         {/* Desktop top bar */}
-        <div className="hidden lg:flex sticky top-0 z-20 h-16 items-center justify-between gap-4 px-6 bg-white/80 backdrop-blur border-b border-slate-200/80">
-          <div className="flex items-center gap-2 text-sm">
-            <Link href="/admin" className="text-slate-400 hover:text-slate-700">Admin</Link>
-            {current && current.label !== 'Dashboard' && (<><span className="text-slate-300">/</span><span className="font-semibold text-slate-800">{current.label}</span></>)}
-            {current?.label === 'Dashboard' && (<><span className="text-slate-300">/</span><span className="font-semibold text-slate-800">Dashboard</span></>)}
-          </div>
+        <header className="hidden lg:flex sticky top-0 z-20 h-16 items-center justify-between gap-4 px-6 bg-white/80 backdrop-blur border-b border-slate-200/80">
+          <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-sm">
+            <Link href="/admin" className="text-slate-500 hover:text-slate-700">Admin</Link>
+            {current && current.label !== 'Dashboard' && (<><span aria-hidden="true" className="text-slate-400">/</span><span aria-current="page" className="font-semibold text-slate-800">{current.label}</span></>)}
+            {current?.label === 'Dashboard' && (<><span aria-hidden="true" className="text-slate-400">/</span><span aria-current="page" className="font-semibold text-slate-800">Dashboard</span></>)}
+          </nav>
           <div className="flex items-center gap-3">
             <LivePill status={status} />
-            <Link href="/admin/inquiries?status=new" className="relative size-9 rounded-xl border border-slate-200 bg-white flex items-center justify-center text-slate-500 hover:text-orange-600 hover:border-orange-200" title="New messages">
+            <Link href="/admin/inquiries?status=new" className="relative size-10 rounded-xl border border-slate-200 bg-white flex items-center justify-center text-slate-600 hover:text-orange-600 hover:border-orange-200" title="New messages" aria-label={unread > 0 ? `${unread} new messages` : 'Messages'}>
               {I('M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9')}
-              {unread > 0 && <span className="absolute -top-1.5 -right-1.5 min-w-5 h-5 px-1 rounded-full bg-orange-600 text-white text-[.65rem] font-bold flex items-center justify-center ring-2 ring-white">{unread}</span>}
+              {unread > 0 && <span aria-hidden="true" className="absolute -top-1.5 -right-1.5 min-w-5 h-5 px-1 rounded-full bg-orange-600 text-white text-[.65rem] font-bold flex items-center justify-center ring-2 ring-white">{unread}</span>}
             </Link>
-            <a href="/" target="_blank" rel="noopener" className="inline-flex items-center gap-1.5 h-9 px-3 rounded-xl border border-slate-200 bg-white text-sm font-medium text-slate-600 hover:text-slate-900 hover:border-slate-300">
+            <a href="/" target="_blank" rel="noopener" className="inline-flex items-center gap-1.5 h-10 px-3.5 rounded-xl border border-slate-200 bg-white text-sm font-medium text-slate-700 hover:text-slate-900 hover:border-slate-300">
               {I('M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14', 'size-4')}View website
             </a>
           </div>
-        </div>
-        <main className="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8">{children}</main>
+        </header>
+        <main id="admin-main" tabIndex={-1} className="outline-none max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8">{children}</main>
       </div>
 
       {/* Live toasts */}
@@ -174,7 +187,7 @@ export default function AdminShell({ children, admin, newMessages }: Props) {
               <p className="text-xs text-slate-300 truncate">{t.text}</p>
               {t.href && <Link href={t.href} onClick={() => setToasts((ts) => ts.filter((x) => x.id !== t.id))} className="inline-block mt-1.5 text-xs font-semibold text-orange-400 hover:text-orange-300">Open →</Link>}
             </div>
-            <button type="button" onClick={() => setToasts((ts) => ts.filter((x) => x.id !== t.id))} className="text-slate-400 hover:text-white text-lg leading-none" aria-label="Dismiss">×</button>
+            <button type="button" onClick={() => setToasts((ts) => ts.filter((x) => x.id !== t.id))} className="-m-1 size-8 rounded-lg flex items-center justify-center text-slate-300 hover:text-white hover:bg-white/10 text-lg leading-none" aria-label="Dismiss">×</button>
           </div>
         ))}
       </div>

@@ -20,8 +20,9 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
         <iframe src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`} height="0" width="0" style={{ display: 'none', visibility: 'hidden' }} />
       </noscript>
       <LegalModalProvider legal={legal}>
+        <a href="#content" className="skip-link">Skip to main content</a>
         <Header logo={site.logo} cta={site.headerCta} />
-        <main id="content">{children}</main>
+        <main id="content" tabIndex={-1} className="outline-none">{children}</main>
         <Footer site={site} />
       </LegalModalProvider>
       <ScrollAnimations />

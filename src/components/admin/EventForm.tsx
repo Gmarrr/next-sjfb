@@ -40,7 +40,7 @@ export default function EventForm({ initial }: { initial: EventInput }) {
             <div>
               <Label htmlFor="slug" required help="The web address: /events/your-slug">URL slug</Label>
               <div className="flex items-center rounded-lg border border-slate-200 bg-slate-50 focus-within:border-orange-500 focus-within:ring-[3px] focus-within:ring-orange-500/10">
-                <span className="pl-3 text-xs text-slate-400 whitespace-nowrap">/events/</span>
+                <span className="pl-3 text-xs text-slate-500 whitespace-nowrap">/events/</span>
                 <input id="slug" className="flex-1 bg-transparent py-2 pr-3 text-sm focus:outline-none" required value={data.event_slug} onChange={(e) => { setSlugTouched(true); set('event_slug', slugify(e.target.value)); }} />
               </div>
             </div>
@@ -75,12 +75,12 @@ export default function EventForm({ initial }: { initial: EventInput }) {
           </Card>
 
           <Card title="Full description">
-            <RichTextEditor value={data.event_content ?? ''} onChange={(v) => set('event_content', v)} folder="events/content" />
+            <RichTextEditor value={data.event_content ?? ''} onChange={(v) => set('event_content', v)} folder="events/content" label="Event description" />
           </Card>
 
           <Card>
             <button type="button" onClick={() => setSeoOpen(!seoOpen)} className="w-full flex items-center justify-between text-sm font-semibold text-slate-700">
-              <span>SEO settings <span className="font-normal text-slate-400">(optional)</span></span>
+              <span>SEO settings <span className="font-normal text-slate-500">(optional)</span></span>
               <span className={`transition ${seoOpen ? 'rotate-180' : ''}`}>⌄</span>
             </button>
             {seoOpen && (
@@ -98,11 +98,11 @@ export default function EventForm({ initial }: { initial: EventInput }) {
             <div className="grid grid-cols-2 gap-2">
               {(['draft', 'published'] as const).map((s) => (
                 <button key={s} type="button" onClick={() => set('event_status', s)} className={`py-2 rounded-lg text-sm font-semibold border transition ${data.event_status === s ? (s === 'published' ? 'bg-emerald-50 border-emerald-300 text-emerald-700' : 'bg-amber-50 border-amber-300 text-amber-700') : 'border-slate-200 text-slate-500 hover:bg-slate-50'}`}>
-                  {s === 'published' ? '✅ Published' : '📝 Draft'}
+                  {s === 'published' ? 'Published' : 'Draft'}
                 </button>
               ))}
             </div>
-            <p className="text-xs text-slate-400">Drafts are hidden from the website.</p>
+            <p className="text-xs text-slate-500">Drafts are hidden from the website.</p>
             {!isNew && data.event_status === 'published' && <a href={`/events/${initial.event_slug}`} target="_blank" rel="noopener" className="text-xs font-semibold text-orange-600 hover:underline">View on website ↗</a>}
           </Card>
 

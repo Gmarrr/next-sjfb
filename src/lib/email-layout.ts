@@ -36,7 +36,7 @@ export const escHtml = (s: string) =>
 
 /** Base URL used for images in emails (must be public — emails can't load localhost). */
 export const emailBaseUrl = () =>
-  (process.env.NEXT_PUBLIC_SITE_URL || 'https://next-sjfb.vercel.app').replace(/\/$/, '');
+  (process.env.NEXT_PUBLIC_SITE_URL || 'https://fishbrokers.net').replace(/\/$/, '');
 
 // ── Building blocks ──────────────────────────────────────────────────────────
 

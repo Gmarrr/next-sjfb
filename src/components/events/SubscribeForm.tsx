@@ -27,7 +27,7 @@ export default function SubscribeForm() {
     <>
       <form onSubmit={onSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
         <div className="hidden" aria-hidden="true"><input type="text" name="website" tabIndex={-1} autoComplete="off" /></div>
-        <input type="email" name="email" required placeholder="Enter your email address" aria-label="Email address" className="flex-1 px-4 py-3 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-orange-500" />
+        <input type="email" name="email" required placeholder="Enter your email address" aria-label="Email address" className="flex-1 px-4 py-3 rounded-xl border border-gray-300 bg-white text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-orange-500" />
         <button type="submit" disabled={state === 'loading'} className="inline-flex items-center justify-center gap-2 py-3 px-6 rounded-xl bg-orange-600 hover:bg-orange-700 active:scale-95 text-white text-sm font-bold transition-all duration-150 shadow-sm hover:shadow-md whitespace-nowrap disabled:opacity-60">
           {state === 'loading' ? 'Subscribing…' : 'Subscribe'}
         </button>

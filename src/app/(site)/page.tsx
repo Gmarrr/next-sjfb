@@ -43,7 +43,7 @@ export default async function HomePage() {
               <div key={st.label} className="py-7 px-5 sm:px-6">
                 <div className="font-display bg-grad-orange bg-clip-text text-transparent text-3xl sm:text-4xl font-bold leading-none">{st.value}</div>
                 <div className="text-white text-xs font-semibold tracking-wide mt-2">{st.label}</div>
-                <div className="text-slate-500 text-[.6875rem] mt-0.5">{st.sub}</div>
+                <div className="text-slate-400 text-[.6875rem] mt-0.5">{st.sub}</div>
               </div>
             ))}
           </div>
@@ -84,7 +84,7 @@ export default async function HomePage() {
                 </span>
                 <h2 className="font-display text-2xl lg:text-3xl font-bold text-slate-900">{c.blogsTitle}</h2>
               </div>
-              <Link href="/blogs" className="inline-flex items-center gap-2 text-sm font-semibold text-orange-600 hover:text-orange-700 transition-colors">
+              <Link href="/blogs" className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-orange-600 hover:text-orange-700 transition-colors">
                 All Blogs
                 <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="m9 18 6-6-6-6" /></svg>
               </Link>
@@ -142,7 +142,7 @@ export default async function HomePage() {
             <RichTitle text={c.ctaTitle} hl="bg-grad-orange bg-clip-text text-transparent" />
           </h2>
           <div className="flex flex-wrap justify-center gap-3 pt-2">
-            <Link href="/contact" className="inline-flex items-center gap-2 text-white text-sm font-semibold bg-grad-orange rounded-full py-3.5 px-8 shadow-[0_4px_20px_rgba(249,115,22,.4)] hover:-translate-y-0.5 hover:shadow-[0_8px_28px_rgba(249,115,22,.5)] transition-all duration-200">
+            <Link href="/contact" className="inline-flex items-center gap-2 text-white text-sm font-semibold bg-grad-cta rounded-full py-3.5 px-8 shadow-[0_4px_20px_rgba(249,115,22,.4)] hover:-translate-y-0.5 hover:shadow-[0_8px_28px_rgba(249,115,22,.5)] transition-all duration-200">
               Contact Our Team
               <svg className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m9 18 6-6-6-6" /></svg>
             </Link>

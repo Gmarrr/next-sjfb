@@ -51,23 +51,37 @@ Run **`supabase/seed_events_2023_2026.sql`** in the SQL Editor. It adds the 2023
 
 ## 3. Deploy to Vercel
 
-1. Push this folder to a new GitHub repo (`.env.local` is git-ignored).
-2. <https://vercel.com/new> → import the repo → framework is detected as **Next.js**.
-3. **Environment Variables** — add these (Production + Preview):
+1. Push this folder to GitHub (`.env.local` is git-ignored) and import the repo at <https://vercel.com/new>.
+2. **Environment Variables** (Production + Preview):
 
    | Key | Value |
    |---|---|
    | `NEXT_PUBLIC_SUPABASE_URL` | from Supabase |
-   | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | from Supabase |
-   | `SUPABASE_SERVICE_ROLE_KEY` | from Supabase (secret) |
+   | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase publishable key |
+   | `SUPABASE_SERVICE_ROLE_KEY` | Supabase secret key |
    | `NEXT_PUBLIC_SITE_URL` | `https://fishbrokers.net` |
-   | `BREVO_API_KEY` | your Brevo key |
-   | `MAIL_FROM` | a sender verified in Brevo, e.g. `marketing@fishbrokers.net` |
+   | `RESEND_API_KEY` | Resend API key (contact-form emails) |
+   | `MAIL_FROM` | an address on your Resend-verified domain, e.g. `website@fishbrokers.net` |
    | `MAIL_FROM_NAME` | `St. Joseph Fish Brokerage Inc.` |
-   | `ADMIN_EMAIL` | where inquiry notifications go |
+   | `ADMIN_EMAIL` | where contact-form notifications go |
 
-4. **Deploy**. Then **Settings → Domains** → add `fishbrokers.net` and `www.fishbrokers.net` and update DNS at
-   your domain registrar as Vercel instructs.
+### Custom domain (GoDaddy → Vercel)
+Vercel → project → **Settings → Domains** → add `fishbrokers.net` (and `www.fishbrokers.net`, redirecting to it).
+In GoDaddy → **Domain → DNS**, set the records Vercel shows: an **A** record for `@` and a **CNAME** for `www`.
+Delete any other A/AAAA records on `@` and the old `www` record. **Don't touch the MX, autodiscover or
+existing email TXT records** — company email keeps working.
+
+### Email sending (Resend)
+1. Resend → **Domains → Add domain** → `fishbrokers.net`. Add its DKIM/SPF records in GoDaddy DNS exactly as shown
+   (they live on `resend._domainkey` and the `send` subdomain, so they don't affect company email). Keep the existing
+   DMARC record — don't add a second one.
+2. Supabase → **Authentication → Emails → SMTP Settings**: host `smtp.resend.com`, port `465`, username `resend`,
+   password = a Resend API key, sender `noreply@fishbrokers.net`.
+3. Supabase → **Authentication → URL Configuration**: Site URL `https://fishbrokers.net`, redirect URLs
+   `https://fishbrokers.net/**`, `https://next-sjfb.vercel.app/**`, `http://localhost:3000/**`.
+4. Paste `supabase/email-templates/reset-password.html` into **Emails → Templates → Reset Password**.
+
+Free tiers: Resend 100 emails/day (3,000/month), Supabase's own rate limit 30/hour with custom SMTP.
 
 ## 4. Admin panel
 

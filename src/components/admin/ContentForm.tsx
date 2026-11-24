@@ -12,8 +12,7 @@ import { useSaveForm } from './useSaveForm';
 
 type Data = Record<string, unknown>;
 
-function FieldInput({ field, value, onChange }: { field: Field; value: unknown; onChange: (v: unknown) => void }) {
-  const id = `f-${field.name}`;
+function FieldInput({ field, value, onChange, id = `f-${field.name}` }: { field: Field; value: unknown; onChange: (v: unknown) => void; id?: string }) {
   switch (field.type) {
     case 'text':
     case 'url':
@@ -23,7 +22,7 @@ function FieldInput({ field, value, onChange }: { field: Field; value: unknown; 
     case 'title':
       return <textarea id={id} rows={Math.min(4, Math.max(1, String(value ?? '').split('\n').length))} className={`${inputCls} font-semibold`} value={(value as string) ?? ''} onChange={(e) => onChange(e.target.value)} />;
     case 'richtext':
-      return <RichTextEditor value={(value as string) ?? ''} onChange={onChange} folder={field.folder ?? 'pages'} minHeight={140} />;
+      return <RichTextEditor value={(value as string) ?? ''} onChange={onChange} folder={field.folder ?? 'pages'} minHeight={140} label={field.label} />;
     case 'image':
       return <ImageField folder={field.folder ?? 'pages'} value={(value as string) ?? ''} onChange={onChange} />;
     case 'video':
@@ -31,7 +30,7 @@ function FieldInput({ field, value, onChange }: { field: Field; value: unknown; 
     case 'images':
       return <ImagesField folder={field.folder ?? 'pages'} value={(value as string[]) ?? []} onChange={onChange} />;
     case 'strings':
-      return <StringListField value={(value as string[]) ?? []} onChange={onChange} placeholder="Line" multiline />;
+      return <StringListField value={(value as string[]) ?? []} onChange={onChange} placeholder="Line" multiline label={field.label} />;
     case 'list': {
       const sub = field.fields ?? [];
       const blank = Object.fromEntries(sub.map((f) => [f.name, f.type === 'images' || f.type === 'strings' ? [] : '']));
@@ -41,10 +40,10 @@ function FieldInput({ field, value, onChange }: { field: Field; value: unknown; 
           onChange={onChange}
           blank={blank}
           itemTitle={(item, i) => String(item[sub[0]?.name] || item[sub[1]?.name] || `Item ${i + 1}`).slice(0, 60)}
-          render={(item, set) => sub.map((f) => (
+          render={(item, set, index) => sub.map((f) => (
             <div key={f.name}>
-              <Label help={f.help}>{f.label}</Label>
-              <FieldInput field={f} value={item[f.name]} onChange={(v) => set({ [f.name]: v })} />
+              <Label htmlFor={`f-${field.name}-${index}-${f.name}`} help={f.help}>{f.label}</Label>
+              <FieldInput field={f} id={`f-${field.name}-${index}-${f.name}`} value={item[f.name]} onChange={(v) => set({ [f.name]: v })} />
             </div>
           ))}
         />
@@ -89,7 +88,7 @@ export default function ContentForm({ section, initial, customized }: { section:
         extra={
           <>
             <a href={section.path} target="_blank" rel="noopener" className={btnSecondary}>Preview ↗</a>
-            {customized && <button type="button" onClick={onReset} className="text-xs font-semibold text-slate-400 hover:text-red-600 px-2">Reset to original</button>}
+            {customized && <button type="button" onClick={onReset} className="text-xs font-semibold text-slate-500 hover:text-red-600 px-2">Reset to original</button>}
           </>
         }
       />

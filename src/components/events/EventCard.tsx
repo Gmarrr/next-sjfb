@@ -40,7 +40,7 @@ export default function EventCard({ e, idx }: { e: EventRow; idx: number }) {
         )}
         <h2 className="font-display text-lg font-bold text-gray-900 mb-2 group-hover:text-orange-600 transition-colors line-clamp-2">{e.event_title}</h2>
         <p className="text-gray-500 text-sm mb-4 line-clamp-3 flex-1">{e.event_excerpt ?? ''}</p>
-        <div className="text-xs text-gray-400 space-y-1 mb-4">
+        <div className="text-xs text-gray-500 space-y-1 mb-4">
           {e.event_time && (
             <p className="flex items-center gap-1.5">
               <svg className="size-3.5 text-orange-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>

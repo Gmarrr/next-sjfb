@@ -17,7 +17,7 @@ export default function ConfirmButton({ action, confirm, label = 'Delete', redir
       <button
         type="button"
         disabled={pending}
-        className={small ? 'text-xs font-semibold text-red-600 hover:underline disabled:opacity-50' : className}
+        className={small ? 'inline-flex min-h-9 items-center px-2.5 rounded-lg text-xs font-semibold text-red-700 hover:bg-red-50 transition-colors disabled:opacity-50' : className}
         onClick={() => {
           if (!window.confirm(confirm)) return;
           start(async () => {
@@ -29,7 +29,7 @@ export default function ConfirmButton({ action, confirm, label = 'Delete', redir
       >
         {pending ? 'Working…' : label}
       </button>
-      {error && <span className="text-xs text-red-600 mt-1">{error}</span>}
+      {error && <span role="alert" className="text-xs text-red-700 mt-1">{error}</span>}
     </span>
   );
 }

@@ -45,10 +45,10 @@ export default async function InquiryPage({ params }: { params: Promise<{ id: st
           <p className="whitespace-pre-wrap text-sm leading-relaxed text-slate-700">{m.message}</p>
           {files.length > 0 && (
             <div className="pt-3 border-t border-slate-100">
-              <p className="text-xs font-bold uppercase tracking-wide text-slate-400 mb-2">Attachments</p>
+              <p className="text-xs font-bold uppercase tracking-wide text-slate-500 mb-2">Attachments</p>
               <ul className="space-y-1.5">
                 {files.map((f) => (
-                  <li key={f.path}>{f.url ? <a href={f.url} target="_blank" rel="noopener" className="text-sm font-semibold text-orange-600 hover:underline">📎 {f.name}</a> : <span className="text-sm text-slate-400">📎 {f.name} (unavailable)</span>}</li>
+                  <li key={f.path}>{f.url ? <a href={f.url} target="_blank" rel="noopener" className="text-sm font-semibold text-orange-600 hover:underline"><svg aria-hidden="true" className="inline size-3.5 -mt-0.5 mr-1" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>{f.name}</a> : <span className="text-sm text-slate-500"><svg aria-hidden="true" className="inline size-3.5 -mt-0.5 mr-1" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>{f.name} (unavailable)</span>}</li>
                 ))}
               </ul>
             </div>
@@ -59,7 +59,7 @@ export default async function InquiryPage({ params }: { params: Promise<{ id: st
           <Card title="Status"><InquiryActions id={m.id} status={m.status} /></Card>
           <Card title="Sender">
             <dl className="space-y-2 text-sm">
-              {rows.map(([k, v]) => (<div key={k}><dt className="text-xs text-slate-400">{k}</dt><dd className="text-slate-800 break-words capitalize-first">{v}</dd></div>))}
+              {rows.map(([k, v]) => (<div key={k}><dt className="text-xs text-slate-500">{k}</dt><dd className="text-slate-800 break-words capitalize-first">{v}</dd></div>))}
             </dl>
           </Card>
         </div>

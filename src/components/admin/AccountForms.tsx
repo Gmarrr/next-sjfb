@@ -26,8 +26,8 @@ export default function AccountForms({ email, fullName, role, reset }: { email: 
   return (
     <div className="grid lg:grid-cols-2 gap-5 items-start">
       <Card title="Profile">
-        <div><Label>Email</Label><input className={`${inputCls} bg-slate-50`} value={email} disabled /></div>
-        <div><Label>Role</Label><input className={`${inputCls} bg-slate-50 capitalize`} value={role} disabled /></div>
+        <div><Label htmlFor="acc-email">Email</Label><input id="acc-email" className={`${inputCls} bg-slate-50`} value={email} disabled /></div>
+        <div><Label htmlFor="acc-role">Role</Label><input id="acc-role" className={`${inputCls} bg-slate-50 capitalize`} value={role} disabled /></div>
         <form className="space-y-3" onSubmit={async (e) => { e.preventDefault(); const r = await updateMyName(name); setNameMsg(r.ok ? 'Saved.' : r.error); }}>
           <div><Label htmlFor="fn">Display name</Label><input id="fn" className={inputCls} value={name} onChange={(e) => setName(e.target.value)} /></div>
           <div className="flex items-center gap-3"><button className={btnPrimary} type="submit">Save name</button>{nameMsg && <span className="text-sm text-slate-500">{nameMsg}</span>}</div>

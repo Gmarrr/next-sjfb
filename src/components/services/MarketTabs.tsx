@@ -38,7 +38,7 @@ function MemberCard({ m }: { m: MarketView['team'][number] }) {
         </div>
       )}
       <p className="font-semibold text-gray-900 text-sm">{m.name}</p>
-      <p className="text-xs text-gray-400 mt-0.5">{m.position}</p>
+      <p className="text-xs text-gray-500 mt-0.5">{m.position}</p>
     </div>
   );
 }
@@ -127,7 +127,7 @@ function MarketPanel({ m }: { m: MarketView }) {
       {/* Products available (names only — the online shop was removed) */}
       {m.products.length > 0 && (
         <div className="mb-12">
-          <h3 className="font-bold text-gray-900 text-lg mb-4">🐟 Products Always Available</h3>
+          <h3 className="flex items-center gap-2 font-bold text-gray-900 text-lg mb-4"><svg aria-hidden="true" className="size-5 text-orange-600" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M6.5 12c.94-3.46 4.94-6 8.5-6 3.56 0 6.06 2.54 7 6-.94 3.47-3.44 6-7 6s-7.56-2.53-8.5-6Z"/><path d="M18 12v.5"/><path d="M16 17.93a9.77 9.77 0 0 1 0-11.86"/><path d="M7 10.67C7 8 5.58 5.97 2.73 5.5c-1 1.5-1 5 .23 6.5-1.24 1.5-1.24 5-.23 6.5C5.58 18.03 7 16 7 13.33"/></svg>Products Always Available</h3>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
             {m.products.map((p) => (
               <div key={p} className="rounded-xl border border-gray-200 bg-white p-4 transition-all duration-200 hover:-translate-y-1 hover:border-orange-300 hover:shadow-lg hover:shadow-black/10">
@@ -140,15 +140,15 @@ function MarketPanel({ m }: { m: MarketView }) {
 
       {/* Team */}
       <div>
-        <h3 className="font-bold text-gray-900 text-lg mb-6">👥 Our Team at {m.name}</h3>
+        <h3 className="flex items-center gap-2 font-bold text-gray-900 text-lg mb-6"><svg aria-hidden="true" className="size-5 text-orange-600" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Our Team at {m.name}</h3>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
           {m.team.map((member) => <MemberCard key={member.name + member.position} m={member} />)}
-          <Link href="/contact?tab=career" className="group flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-gray-200 px-4 py-5 text-center transition-all hover:border-blue-400 hover:bg-blue-50">
-            <div className="mb-2 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 transition-colors group-hover:bg-blue-100">
-              <svg width="20" height="20" fill="none" stroke="#9ca3af" strokeWidth="2" viewBox="0 0 24 24" className="transition-colors group-hover:stroke-blue-500"><path d="M12 4v16m8-8H4" /></svg>
+          <Link href="/contact?tab=career" className="group flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-gray-200 px-4 py-5 text-center transition-all hover:border-orange-300 hover:bg-orange-50">
+            <div className="mb-2 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 transition-colors group-hover:bg-orange-100">
+              <svg width="20" height="20" fill="none" stroke="#9ca3af" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true" className="transition-colors group-hover:stroke-orange-600"><path d="M12 4v16m8-8H4" /></svg>
             </div>
-            <p className="text-sm font-semibold text-gray-400 transition-colors group-hover:text-blue-500">Join the Team</p>
-            <p className="text-xs text-gray-300 mt-0.5">View openings</p>
+            <p className="text-sm font-semibold text-gray-500 transition-colors group-hover:text-orange-600">Join the Team</p>
+            <p className="text-xs text-gray-500 mt-0.5">View openings</p>
           </Link>
         </div>
       </div>
@@ -196,7 +196,7 @@ export default function MarketTabs({ markets }: { markets: MarketView[] }) {
                 aria-selected={isActive}
                 onClick={() => setActiveKey(m.key)}
                 style={isActive ? { borderColor: m.accent, backgroundColor: `${m.accent}1a`, color: m.accent } : undefined}
-                className={`${isActive ? 'font-bold' : 'border-transparent text-gray-500'} py-3 px-5 inline-flex items-center whitespace-nowrap border-b-2 rounded-t-lg text-sm font-semibold hover:text-gray-700 hover:bg-gray-50 focus:outline-none transition-all duration-200`}
+                className={`${isActive ? 'font-bold' : 'border-transparent text-gray-500'} py-3 px-5 inline-flex items-center whitespace-nowrap border-b-2 rounded-t-lg text-sm font-semibold hover:text-gray-700 hover:bg-gray-50 transition-all duration-200`}
               >
                 {m.name}
               </button>

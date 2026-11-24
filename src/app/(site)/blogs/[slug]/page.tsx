@@ -38,7 +38,7 @@ export default async function BlogPostPage({ params }: Props) {
         <div className="lg:col-span-2">
           <div className="py-8 lg:pe-8">
             <div className="space-y-5 lg:space-y-8">
-              <Link className="inline-flex items-center gap-x-1.5 text-sm text-gray-500 decoration-2 hover:underline focus:outline-hidden focus:underline" href="/blogs">
+              <Link className="inline-flex items-center gap-x-1.5 py-2 text-sm text-gray-600 decoration-2 hover:underline focus:underline" href="/blogs">
                 <svg className="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6" /></svg>
                 Back to Blog
               </Link>
@@ -48,7 +48,7 @@ export default async function BlogPostPage({ params }: Props) {
                 <div className="title-blog-content">
                   <div className="flex items-center gap-x-4">
                     <span className="inline-flex items-center py-1.5 px-4 rounded-full text-xs font-bold bg-white text-black uppercase tracking-wide">News</span>
-                    <p className="text-xs sm:text-sm text-white/90 font-medium">{fmtLong(blog.blog_published_date)}</p>
+                    <p className="text-xs sm:text-sm text-white font-medium">{fmtLong(blog.blog_published_date)}</p>
                   </div>
                   <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-tight">{blog.blog_title}</h1>
                   {blog.blog_excerpt && (
@@ -83,16 +83,16 @@ export default async function BlogPostPage({ params }: Props) {
                 {(blog.blog_author ?? 'A').charAt(0).toUpperCase()}
               </div>
               <div className="grow">
-                <h5 className="text-sm font-semibold text-gray-900">{blog.blog_author ?? 'Admin'}</h5>
+                <p className="text-sm font-semibold text-gray-900">{blog.blog_author ?? 'Admin'}</p>
                 <p className="text-sm text-gray-500">Author</p>
               </div>
             </div>
 
             {related.length > 0 && (
               <div className="space-y-6">
-                <h4 className="text-lg font-semibold text-gray-900">Related Posts</h4>
+                <h2 className="text-lg font-semibold text-gray-900">Related Posts</h2>
                 {related.map((r) => (
-                  <Link key={r.blog_id} className="group flex items-center gap-x-6 focus:outline-hidden" href={`/blogs/${r.blog_slug}`}>
+                  <Link key={r.blog_id} className="group flex items-center gap-x-6" href={`/blogs/${r.blog_slug}`}>
                     <div className="grow">
                       <span className="text-sm font-bold text-gray-900 group-hover:text-orange-600">{r.blog_title}</span>
                       <p className="text-xs text-gray-500 mt-1">{fmtShort(r.blog_published_date)}</p>

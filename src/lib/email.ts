@@ -2,30 +2,57 @@ import 'server-only';
 
 import { emailBaseUrl, emailBox, emailButton, emailFieldTable, emailLayout, emailNote, escHtml } from './email-layout';
 
-/** Sends a transactional email through Brevo. Returns false (never throws) if not configured or on failure. */
-export async function sendBrevoEmail(opts: { to: string; subject: string; html: string; replyTo?: { email: string; name?: string } }): Promise<boolean> {
-  const apiKey = process.env.BREVO_API_KEY;
+type SendOpts = { to: string; subject: string; html: string; replyTo?: { email: string; name?: string } };
+
+const fromName = () => process.env.MAIL_FROM_NAME || 'St. Joseph Fish Brokerage Inc.';
+
+/**
+ * Sends a transactional email. Uses Resend when RESEND_API_KEY is set, otherwise Brevo (BREVO_API_KEY).
+ * Returns false (never throws) if nothing is configured or sending fails — callers treat email as best effort.
+ */
+export async function sendEmail(opts: SendOpts): Promise<boolean> {
   const fromEmail = process.env.MAIL_FROM;
-  if (!apiKey || !fromEmail) return false;
+  if (!fromEmail) return false;
   try {
-    const res = await fetch('https://api.brevo.com/v3/smtp/email', {
-      method: 'POST',
-      headers: { 'api-key': apiKey, 'content-type': 'application/json', accept: 'application/json' },
-      body: JSON.stringify({
-        sender: { email: fromEmail, name: process.env.MAIL_FROM_NAME || 'St. Joseph Fish Brokerage Inc.' },
-        to: [{ email: opts.to }],
-        replyTo: opts.replyTo,
-        subject: opts.subject,
-        htmlContent: opts.html,
-      }),
-    });
-    if (!res.ok) console.error('[brevo]', res.status, await res.text());
-    return res.ok;
+    if (process.env.RESEND_API_KEY) {
+      const res = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: { authorization: `Bearer ${process.env.RESEND_API_KEY}`, 'content-type': 'application/json' },
+        body: JSON.stringify({
+          from: `${fromName()} <${fromEmail}>`,
+          to: [opts.to],
+          subject: opts.subject,
+          html: opts.html,
+          ...(opts.replyTo ? { reply_to: opts.replyTo.email } : {}),
+        }),
+      });
+      if (!res.ok) console.error('[resend]', res.status, await res.text());
+      return res.ok;
+    }
+    if (process.env.BREVO_API_KEY) {
+      const res = await fetch('https://api.brevo.com/v3/smtp/email', {
+        method: 'POST',
+        headers: { 'api-key': process.env.BREVO_API_KEY, 'content-type': 'application/json', accept: 'application/json' },
+        body: JSON.stringify({
+          sender: { email: fromEmail, name: fromName() },
+          to: [{ email: opts.to }],
+          replyTo: opts.replyTo,
+          subject: opts.subject,
+          htmlContent: opts.html,
+        }),
+      });
+      if (!res.ok) console.error('[brevo]', res.status, await res.text());
+      return res.ok;
+    }
+    return false;
   } catch (err) {
-    console.error('[brevo]', err);
+    console.error('[email]', err);
     return false;
   }
 }
+
+/** @deprecated kept so older imports keep working — use sendEmail. */
+export const sendBrevoEmail = sendEmail;
 
 export function inquiryEmailHtml(fields: Record<string, string>, attachmentLinks: { name: string; url: string }[]): string {
   const files = attachmentLinks.length

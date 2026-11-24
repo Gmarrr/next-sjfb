@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getSupabaseAdmin } from '@/lib/supabase';
-import { inquiryEmailHtml, sendBrevoEmail } from '@/lib/email';
+import { inquiryEmailHtml, sendEmail } from '@/lib/email';
 
 export const runtime = 'nodejs';
 
@@ -83,7 +83,7 @@ export async function POST(req: Request) {
       const { data: signed } = await sb.storage.from('inquiry-attachments').createSignedUrl(u.path, 60 * 60 * 24 * 7);
       if (signed?.signedUrl) links.push({ name: u.name, url: signed.signedUrl });
     }
-    await sendBrevoEmail({
+    await sendEmail({
       to: adminEmail,
       subject: `[Website Inquiry] ${data.subject}`,
       replyTo: { email: data.email, name: `${data.first_name} ${data.last_name}` },

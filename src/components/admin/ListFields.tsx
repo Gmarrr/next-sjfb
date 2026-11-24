@@ -3,11 +3,15 @@
 import type { ReactNode } from 'react';
 import { inputCls } from './ui';
 
+const Ico = ({ d }: { d: string }) => (
+  <svg aria-hidden="true" className="size-4" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24"><path d={d} /></svg>
+);
+const moveBtn = 'inline-flex size-9 items-center justify-center rounded-lg transition-colors disabled:opacity-30 disabled:pointer-events-none';
 const Move = ({ i, len, move, remove }: { i: number; len: number; move: (i: number, d: -1 | 1) => void; remove: (i: number) => void }) => (
-  <div className="flex items-center gap-0.5 shrink-0">
-    <button type="button" title="Move up" onClick={() => move(i, -1)} disabled={i === 0} className="size-7 rounded-md text-slate-500 hover:bg-slate-100 disabled:opacity-30">↑</button>
-    <button type="button" title="Move down" onClick={() => move(i, 1)} disabled={i === len - 1} className="size-7 rounded-md text-slate-500 hover:bg-slate-100 disabled:opacity-30">↓</button>
-    <button type="button" title="Remove" onClick={() => remove(i)} className="size-7 rounded-md text-red-500 hover:bg-red-50">×</button>
+  <div className="flex items-center shrink-0">
+    <button type="button" title="Move up" aria-label={`Move item ${i + 1} up`} onClick={() => move(i, -1)} disabled={i === 0} className={`${moveBtn} text-slate-600 hover:bg-slate-100`}><Ico d="m18 15-6-6-6 6" /></button>
+    <button type="button" title="Move down" aria-label={`Move item ${i + 1} down`} onClick={() => move(i, 1)} disabled={i === len - 1} className={`${moveBtn} text-slate-600 hover:bg-slate-100`}><Ico d="m6 9 6 6 6-6" /></button>
+    <button type="button" title="Remove" aria-label={`Remove item ${i + 1}`} onClick={() => remove(i)} className={`${moveBtn} text-red-600 hover:bg-red-50`}><Ico d="M18 6 6 18M6 6l12 12" /></button>
   </div>
 );
 
@@ -26,19 +30,19 @@ function useListOps<T>(value: T[], onChange: (v: T[]) => void) {
 }
 
 /** Editable list of short text lines. */
-export function StringListField({ value, onChange, placeholder = 'New item', multiline = false }: { value: string[]; onChange: (v: string[]) => void; placeholder?: string; multiline?: boolean }) {
+export function StringListField({ value, onChange, placeholder = 'New item', multiline = false, label = 'Item' }: { value: string[]; onChange: (v: string[]) => void; placeholder?: string; multiline?: boolean; label?: string }) {
   const { move, remove, update } = useListOps(value, onChange);
   return (
     <div className="space-y-2">
       {value.map((v, i) => (
         <div key={i} className="flex items-start gap-2">
           {multiline
-            ? <textarea rows={2} className={inputCls} value={v} onChange={(e) => update(i, e.target.value)} />
-            : <input className={inputCls} value={v} onChange={(e) => update(i, e.target.value)} />}
+            ? <textarea rows={2} aria-label={`${label} ${i + 1}`} className={inputCls} value={v} onChange={(e) => update(i, e.target.value)} />
+            : <input aria-label={`${label} ${i + 1}`} className={inputCls} value={v} onChange={(e) => update(i, e.target.value)} />}
           <Move i={i} len={value.length} move={move} remove={remove} />
         </div>
       ))}
-      <button type="button" onClick={() => onChange([...value, ''])} className="text-sm font-semibold text-orange-600 hover:text-orange-700">+ Add {placeholder.toLowerCase()}</button>
+      <button type="button" onClick={() => onChange([...value, ''])} className="inline-flex min-h-9 items-center text-sm font-semibold text-orange-600 hover:text-orange-700">+ Add {placeholder.toLowerCase()}</button>
     </div>
   );
 }

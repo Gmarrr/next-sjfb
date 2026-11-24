@@ -34,16 +34,16 @@ export default function UsersManager({ admins, meId }: { admins: AdminRow[]; meI
             <li key={a.user_id} className="flex flex-wrap items-center gap-3 py-3">
               <span className="size-9 rounded-full bg-orange-100 text-orange-700 font-bold text-sm flex items-center justify-center">{(a.full_name || a.email).charAt(0).toUpperCase()}</span>
               <div className="flex-1 min-w-[180px]">
-                <p className="text-sm font-semibold text-slate-900">{a.full_name || a.email.split('@')[0]} {a.user_id === meId && <span className="text-xs text-slate-400 font-normal">(you)</span>}</p>
+                <p className="text-sm font-semibold text-slate-900">{a.full_name || a.email.split('@')[0]} {a.user_id === meId && <span className="text-xs text-slate-500 font-normal">(you)</span>}</p>
                 <p className="text-xs text-slate-500">{a.email}</p>
               </div>
               {a.user_id === meId ? <Badge value={a.role} /> : (
                 <div className="flex items-center gap-2">
-                  <select disabled={pending} value={a.role} onChange={(e) => run(() => setAdminRole(a.user_id, e.target.value as 'owner' | 'editor'))} className="text-xs border border-slate-200 rounded-md py-1 px-2 bg-white">
+                  <select disabled={pending} value={a.role} onChange={(e) => run(() => setAdminRole(a.user_id, e.target.value as 'owner' | 'editor'))} aria-label={`Role for ${a.email}`} className="min-h-9 text-sm border border-slate-300 rounded-lg py-1.5 px-2 bg-white">
                     <option value="editor">Editor</option>
                     <option value="owner">Owner</option>
                   </select>
-                  <button type="button" disabled={pending} className="text-xs font-semibold text-red-600 hover:underline"
+                  <button type="button" disabled={pending} aria-label={`Remove ${a.email}`} className="min-h-9 px-2 rounded-lg text-sm font-semibold text-red-700 hover:bg-red-50"
                     onClick={() => {
                       if (!window.confirm(`Remove ${a.email} from the admin panel?`)) return;
                       const del = window.confirm('Also delete their login account completely? (OK = delete account, Cancel = only remove admin access)');

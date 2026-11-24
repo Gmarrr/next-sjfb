@@ -133,7 +133,7 @@ export default function Explore({ c }: { c: Content<'home'> }) {
             </div>
 
             {/* snap-scroll photo strip */}
-            <div className="mt-10 -mx-6 px-6 flex gap-4 overflow-x-auto snap-x snap-mandatory pb-2 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+            <div tabIndex={0} role="region" aria-label="Photo highlights (scroll sideways)" className="mt-10 -mx-6 px-6 flex gap-4 overflow-x-auto snap-x snap-mandatory pb-2 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
               <figure className="snap-center shrink-0 w-56 h-72 rounded-2xl overflow-hidden shadow-lg ring-4 ring-white">
                 <img src={photo(0)} alt={ALTS[0]} className="w-full h-full object-cover" loading="lazy" decoding="async" />
               </figure>

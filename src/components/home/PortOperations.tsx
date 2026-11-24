@@ -57,7 +57,7 @@ export default function PortOperations({ locs, badge, title }: { locs: PortLocat
                 type="button"
                 onClick={() => setOpenIdx(i)}
                 aria-haspopup="dialog"
-                className="w-full text-left p-5 bg-white/5 border border-white/10 rounded-2xl hover:bg-white/10 hover:border-orange-500/30 transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500/50"
+                className="w-full text-left p-5 bg-white/5 border border-white/10 rounded-2xl hover:bg-white/10 hover:border-orange-500/30 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-orange-500/50"
                 data-aos="fade-up"
                 data-aos-delay={i * 70}
               >
@@ -89,7 +89,7 @@ export default function PortOperations({ locs, badge, title }: { locs: PortLocat
                   onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/assets/images/contents/home_4.jpg'; }}
                 />
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/10 to-transparent" />
-                <button type="button" onClick={close} aria-label="Close" className="absolute top-3 end-3 flex items-center justify-center w-9 h-9 rounded-full bg-slate-900/70 border border-white/10 text-white hover:bg-slate-900/90 transition-colors">
+                <button type="button" onClick={close} aria-label="Close" className="absolute top-3 end-3 flex items-center justify-center size-11 rounded-full bg-slate-900/70 border border-white/10 text-white hover:bg-slate-900/90 transition-colors">
                   <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" /></svg>
                 </button>
                 {loc.tag && <span className="absolute bottom-3 start-4 inline-block text-[.625rem] font-bold uppercase tracking-widest text-orange-400">{loc.tag}</span>}
@@ -101,7 +101,7 @@ export default function PortOperations({ locs, badge, title }: { locs: PortLocat
               </div>
               <div className="flex justify-between items-center gap-x-2 py-3 px-6 border-t border-white/10">
                 <button type="button" onClick={close} className="py-2 px-3 text-sm font-semibold rounded-lg text-slate-300 hover:bg-white/5 transition-colors">Close</button>
-                <Link href={loc.link} className="py-2 px-4 text-sm font-semibold rounded-lg bg-grad-orange text-white hover:opacity-90 transition-opacity">
+                <Link href={loc.link} className="py-2 px-4 text-sm font-semibold rounded-lg bg-grad-cta text-white hover:opacity-90 transition-opacity">
                   View Full Port Profile &rarr;
                 </Link>
               </div>

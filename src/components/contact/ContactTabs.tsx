@@ -13,7 +13,7 @@ export default function ContactTabs({ careerPanel, sidebar, perks, formTitle, fo
   }, []);
 
   const tabCls = (active: boolean) =>
-    `${active ? 'bg-white text-blue-800 shadow-sm' : 'text-gray-500'} inline-flex items-center gap-2 rounded-xl py-3 px-5 text-sm font-semibold transition-all hover:text-gray-700 focus:outline-none`;
+    `${active ? 'bg-white text-blue-800 shadow-sm' : 'text-gray-600'} inline-flex items-center gap-2 rounded-xl py-3 px-5 text-sm font-semibold transition-all hover:text-gray-700`;
 
   return (
     <div className="grid lg:grid-cols-[1fr_340px] gap-10 items-start">
@@ -44,7 +44,7 @@ export default function ContactTabs({ careerPanel, sidebar, perks, formTitle, fo
         {sidebar}
         {tab === 'career' && (
           <div className="bg-amber-50 border border-amber-200 rounded-2xl p-5 shadow-sm">
-            <h4 className="text-sm font-bold text-amber-800 mb-3">⭐ Why Work With Us</h4>
+            <h3 className="flex items-center gap-2 text-sm font-bold text-amber-800 mb-3"><svg aria-hidden="true" className="size-4 text-amber-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>Why Work With Us</h3>
             <ul className="space-y-1.5 text-xs text-amber-800">
               {perks.map((perk) => (
                 <li key={perk} className="flex items-center gap-2">

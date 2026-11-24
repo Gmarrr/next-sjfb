@@ -44,7 +44,7 @@ export default async function AdminEventsPage({ searchParams }: { searchParams: 
                       <Thumb src={mediaUrl(e.event_image)} />
                       <div className="min-w-0">
                         <p className="font-semibold text-slate-900 group-hover:text-orange-600 truncate">{e.event_title}</p>
-                        <p className="text-xs text-slate-400 truncate">{e.event_category ?? '—'} <span className="md:hidden">· {fmtShort(e.event_date)}</span></p>
+                        <p className="text-xs text-slate-500 truncate">{e.event_category ?? '—'} <span className="md:hidden">· {fmtShort(e.event_date)}</span></p>
                       </div>
                     </Link>
                   </td>
@@ -53,8 +53,8 @@ export default async function AdminEventsPage({ searchParams }: { searchParams: 
                   <td className="px-4 py-3"><Badge value={e.event_status} /></td>
                   <td className="px-4 py-3">
                     <div className="flex items-center justify-end gap-3">
-                      {e.event_status === 'published' && <a href={`/events/${e.event_slug}`} target="_blank" rel="noopener" className="text-xs font-semibold text-slate-500 hover:text-slate-800">View</a>}
-                      <Link href={`/admin/events/${e.event_id}`} className="text-xs font-semibold text-orange-600 hover:underline">Edit</Link>
+                      {e.event_status === 'published' && <a href={`/events/${e.event_slug}`} target="_blank" rel="noopener" className="inline-flex min-h-9 items-center px-2.5 rounded-lg text-xs font-semibold text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors">View</a>}
+                      <Link href={`/admin/events/${e.event_id}`} className="inline-flex min-h-9 items-center px-2.5 rounded-lg text-xs font-semibold text-orange-600 hover:bg-orange-50 transition-colors">Edit</Link>
                       <ConfirmButton small action={deleteEvent.bind(null, e.event_id)} confirm={`Delete "${e.event_title}"? This cannot be undone.`} />
                     </div>
                   </td>

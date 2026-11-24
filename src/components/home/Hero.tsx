@@ -34,7 +34,7 @@ export default function Hero({ chip, eyebrow, title, text, poster, video }: Hero
   };
 
   return (
-    <section id="hero" role="banner" className="relative w-full h-[100svh] min-h-[560px] max-h-[900px] overflow-hidden bg-slate-900">
+    <section id="hero" aria-label="Introduction" className="relative w-full h-[100svh] min-h-[560px] max-h-[900px] overflow-hidden bg-slate-900">
       {/* Poster fallback shown until video is ready */}
       <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url('${poster}')` }} />
 
@@ -85,7 +85,7 @@ export default function Hero({ chip, eyebrow, title, text, poster, video }: Hero
         <div className="hero-anim animate-fade-up-4 mt-8 flex flex-wrap gap-3.5">
           <Link
             href="/about"
-            className="inline-flex items-center gap-2 py-3.5 px-8 rounded-full bg-grad-orange text-white text-sm font-semibold shadow-[0_4px_20px_rgba(249,115,22,.4)] hover:-translate-y-0.5 hover:shadow-[0_8px_28px_rgba(249,115,22,.5)] transition-all duration-200"
+            className="inline-flex items-center gap-2 py-3.5 px-8 rounded-full bg-grad-cta text-white text-sm font-semibold shadow-[0_4px_20px_rgba(249,115,22,.4)] hover:-translate-y-0.5 hover:shadow-[0_8px_28px_rgba(249,115,22,.5)] transition-all duration-200"
           >
             Our Company
             <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
@@ -111,8 +111,9 @@ export default function Hero({ chip, eyebrow, title, text, poster, video }: Hero
         <button
           type="button"
           onClick={toggleMute}
-          aria-label="Toggle video sound"
-          className="hero-anim animate-fade-in-2 absolute z-10 bottom-7 left-5 sm:left-12 lg:left-20 flex items-center gap-2 py-2 px-4 rounded-full bg-slate-900/50 border border-white/[.18] text-white/75 text-xs font-medium backdrop-blur-md cursor-pointer hover:text-white hover:border-white/40 hover:bg-slate-900/70 transition-all duration-200"
+          aria-label={muted ? 'Turn video sound on' : 'Turn video sound off'}
+          aria-pressed={!muted}
+          className="hero-anim animate-fade-in-2 absolute z-10 bottom-7 left-5 sm:left-12 lg:left-20 flex items-center gap-2 min-h-11 py-2.5 px-4 rounded-full bg-slate-900/60 border border-white/[.18] text-white/90 text-xs font-medium backdrop-blur-md cursor-pointer hover:text-white hover:border-white/40 hover:bg-slate-900/70 transition-all duration-200"
         >
           {muted ? (
             <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.75" className="shrink-0">

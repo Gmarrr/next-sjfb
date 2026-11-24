@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import EmojiIcon from '@/components/ui/EmojiIcon';
 import Link from 'next/link';
 import Breadcrumbs from '@/components/layout/Breadcrumbs';
 import MarketTabs, { type MarketView } from '@/components/services/MarketTabs';
@@ -62,7 +63,7 @@ export default async function ServicesPage() {
             </p>
             <div className="flex flex-wrap gap-4 justify-center text-sm text-white/60">
               {c.heroPills.map(({ icon, label }) => (
-                <span key={label} className="inline-flex items-center gap-2 py-1.5 px-3 rounded-full bg-white/10 border border-white/15 text-white/80 text-xs font-medium">{icon} {label}</span>
+                <span key={label} className="inline-flex items-center gap-2 py-2 px-3.5 rounded-full bg-white/10 border border-white/15 text-white text-sm font-medium"><EmojiIcon emoji={icon} className="size-4 text-orange-300" />{label}</span>
               ))}
             </div>
           </div>
@@ -89,9 +90,9 @@ export default async function ServicesPage() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {c.why.map(({ icon, title, desc }) => (
               <div key={title} className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg" data-aos="fade-up">
-                <div className="text-3xl mb-4">{icon}</div>
+                <div className="mb-4 inline-flex size-12 items-center justify-center rounded-xl bg-orange-50 text-orange-600 ring-1 ring-orange-100"><EmojiIcon emoji={icon} className="size-6" /></div>
                 <h3 className="font-bold text-gray-900 mb-2">{title}</h3>
-                <p className="text-sm text-gray-500 leading-relaxed">{desc}</p>
+                <p className="text-sm text-gray-600 leading-relaxed">{desc}</p>
               </div>
             ))}
           </div>

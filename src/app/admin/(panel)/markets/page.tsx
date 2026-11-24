@@ -27,8 +27,8 @@ export default async function AdminMarketsPage() {
                 <div className="flex items-center gap-2"><Link href={`/admin/markets/${m.market_id}`} className="font-bold text-slate-900 hover:text-orange-600 truncate">{m.market_name}</Link><Badge value={m.is_active ? 'active' : 'hidden'} /></div>
                 <p className="text-xs text-slate-500">{m.location_short ?? '—'} · {m.stall_count ?? 0} stalls · {m.market_members?.length ?? 0} team members</p>
                 <div className="flex gap-3 mt-2">
-                  <Link href={`/admin/markets/${m.market_id}`} className="text-xs font-semibold text-orange-600 hover:underline">Edit</Link>
-                  <a href={`/services?market=${m.market_key}`} target="_blank" rel="noopener" className="text-xs font-semibold text-slate-500 hover:text-slate-800">View</a>
+                  <Link href={`/admin/markets/${m.market_id}`} className="inline-flex min-h-9 items-center px-2.5 rounded-lg text-xs font-semibold text-orange-600 hover:bg-orange-50 transition-colors">Edit</Link>
+                  <a href={`/services?market=${m.market_key}`} target="_blank" rel="noopener" className="inline-flex min-h-9 items-center px-2.5 rounded-lg text-xs font-semibold text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors">View</a>
                   <ConfirmButton small action={deleteMarket.bind(null, m.market_id)} confirm={`Delete "${m.market_name}" and its team list?`} />
                 </div>
               </div>

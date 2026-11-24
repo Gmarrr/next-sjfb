@@ -55,7 +55,7 @@ export default async function DashboardPage({ searchParams }: { searchParams: Pr
             </span>
             <p className={`text-[1.7rem] leading-none font-extrabold mt-3 ${s.hot ? 'text-orange-600' : 'text-slate-900'}`}>{s.value}</p>
             <p className="text-sm font-semibold text-slate-700 mt-1.5">{s.label}</p>
-            <p className="text-xs text-slate-400">{s.sub}</p>
+            <p className="text-xs text-slate-500">{s.sub}</p>
           </Link>
         ))}
       </div>
@@ -72,9 +72,9 @@ export default async function DashboardPage({ searchParams }: { searchParams: Pr
                     <span className={`size-2 rounded-full shrink-0 ${m.status === 'new' ? 'bg-orange-500' : 'bg-transparent'}`} />
                     <div className="min-w-0 flex-1">
                       <p className={`text-sm truncate ${m.status === 'new' ? 'font-bold text-slate-900' : 'text-slate-700'}`}>{m.subject}</p>
-                      <p className="text-xs text-slate-400 truncate">{m.first_name} {m.last_name} · {m.sender_type ?? '—'}</p>
+                      <p className="text-xs text-slate-500 truncate">{m.first_name} {m.last_name} · {m.sender_type ?? '—'}</p>
                     </div>
-                    <span className="text-xs text-slate-400 shrink-0">{fmtShort(m.created_at)}</span>
+                    <span className="text-xs text-slate-500 shrink-0">{fmtShort(m.created_at)}</span>
                     <Badge value={m.status} />
                   </Link>
                 </li>

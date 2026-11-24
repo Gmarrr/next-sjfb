@@ -35,7 +35,7 @@ export default function BlogForm({ initial }: { initial: BlogInput }) {
             <div>
               <Label htmlFor="slug" required>URL slug</Label>
               <div className="flex items-center rounded-lg border border-slate-200 bg-slate-50 focus-within:border-orange-500">
-                <span className="pl-3 text-xs text-slate-400">/blogs/</span>
+                <span className="pl-3 text-xs text-slate-500">/blogs/</span>
                 <input id="slug" required className="flex-1 bg-transparent py-2 pr-3 text-sm focus:outline-none" value={data.blog_slug} onChange={(e) => { setSlugTouched(true); set('blog_slug', slugify(e.target.value)); }} />
               </div>
             </div>
@@ -45,7 +45,7 @@ export default function BlogForm({ initial }: { initial: BlogInput }) {
             </div>
           </Card>
           <Card title="Content">
-            <RichTextEditor value={data.blog_content ?? ''} onChange={(v) => set('blog_content', v)} folder="blogs/content" minHeight={360} />
+            <RichTextEditor value={data.blog_content ?? ''} onChange={(v) => set('blog_content', v)} folder="blogs/content" minHeight={360} label="Blog content" />
           </Card>
           <Card title="SEO (optional)">
             <div><Label htmlFor="mt">Meta title</Label><input id="mt" className={inputCls} value={data.blog_meta_title ?? ''} onChange={(e) => set('blog_meta_title', e.target.value)} placeholder="Leave empty to use the title" /></div>
@@ -58,7 +58,7 @@ export default function BlogForm({ initial }: { initial: BlogInput }) {
             <div className="grid grid-cols-2 gap-2">
               {(['draft', 'published'] as const).map((s) => (
                 <button key={s} type="button" onClick={() => set('blog_status', s)} className={`py-2 rounded-lg text-sm font-semibold border transition ${data.blog_status === s ? (s === 'published' ? 'bg-emerald-50 border-emerald-300 text-emerald-700' : 'bg-amber-50 border-amber-300 text-amber-700') : 'border-slate-200 text-slate-500 hover:bg-slate-50'}`}>
-                  {s === 'published' ? '✅ Published' : '📝 Draft'}
+                  {s === 'published' ? 'Published' : 'Draft'}
                 </button>
               ))}
             </div>

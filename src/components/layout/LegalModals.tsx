@@ -75,9 +75,9 @@ export function LegalLink({ id, children }: { id: 'privacy' | 'terms'; children:
     <button
       type="button"
       onClick={() => openModal(id)}
-      className="group flex items-center gap-1.5 text-sm text-white/80 hover:text-orange-400 transition-colors duration-150 text-left"
+      className="group flex items-center gap-1.5 py-1.5 text-sm text-white/80 hover:text-orange-400 transition-colors duration-150 text-left"
     >
-      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition-all duration-150">
+      <svg aria-hidden="true" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition-all duration-150">
         <path d="M9 18l6-6-6-6" />
       </svg>
       {children}

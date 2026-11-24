@@ -22,7 +22,7 @@ export default async function ContentIndexPage() {
               <span className="text-orange-500 opacity-0 group-hover:opacity-100 transition">→</span>
             </div>
             <p className="text-sm text-slate-500 mt-1">{s.description}</p>
-            <p className="text-xs mt-3 text-slate-400">{updated[s.key] ? `Last edited ${fmtShort(updated[s.key])}` : 'Original text'}</p>
+            <p className="text-xs mt-3 text-slate-500">{updated[s.key] ? `Last edited ${fmtShort(updated[s.key])}` : 'Original text'}</p>
           </Link>
         ))}
       </div>

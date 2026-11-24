@@ -42,8 +42,8 @@ export default function MarketForm({ initial }: { initial: MarketInput }) {
             </div>
             <div><Label htmlFor="locf">Full address</Label><input id="locf" className={inputCls} value={data.location_full ?? ''} onChange={(e) => set('location_full', e.target.value)} /></div>
             <div><Label htmlFor="desc">Description</Label><textarea id="desc" rows={4} className={inputCls} value={data.description ?? ''} onChange={(e) => set('description', e.target.value)} /></div>
-            <div><Label>Highlights</Label><StringListField value={data.highlights} onChange={(v) => set('highlights', v)} placeholder="Highlight" /></div>
-            <div><Label help="Names only (the online shop was removed).">Products always available</Label><StringListField value={data.products_available} onChange={(v) => set('products_available', v)} placeholder="Product" /></div>
+            <div><Label>Highlights</Label><StringListField value={data.highlights} onChange={(v) => set('highlights', v)} placeholder="Highlight" label="Highlight" /></div>
+            <div><Label help="Names only (the online shop was removed).">Products always available</Label><StringListField value={data.products_available} onChange={(v) => set('products_available', v)} placeholder="Product" label="Product" /></div>
           </Card>
 
           <Card title="Photos">
@@ -57,10 +57,10 @@ export default function MarketForm({ initial }: { initial: MarketInput }) {
               onChange={(v) => set('members', v)}
               blank={{ member_name: '', position: '', image_url: '', is_active: true }}
               itemTitle={(m) => m.member_name || 'New member'}
-              render={(m, upd) => (
+              render={(m, upd, i) => (
                 <div className="grid sm:grid-cols-[1fr_1fr] gap-3">
-                  <div><Label>Name</Label><input className={inputCls} value={m.member_name} onChange={(e) => upd({ member_name: e.target.value })} /></div>
-                  <div><Label>Position</Label><input className={inputCls} value={m.position ?? ''} onChange={(e) => upd({ position: e.target.value })} /></div>
+                  <div><Label htmlFor={`mm-name-${i}`}>Name</Label><input id={`mm-name-${i}`} className={inputCls} value={m.member_name} onChange={(e) => upd({ member_name: e.target.value })} /></div>
+                  <div><Label htmlFor={`mm-pos-${i}`}>Position</Label><input id={`mm-pos-${i}`} className={inputCls} value={m.position ?? ''} onChange={(e) => upd({ position: e.target.value })} /></div>
                   <div className="sm:col-span-2"><Label>Photo</Label><ImageField folder="members" value={m.image_url ?? ''} onChange={(v) => upd({ image_url: v })} /></div>
                   <label className="flex items-center gap-2 text-sm text-slate-600"><input type="checkbox" checked={m.is_active} onChange={(e) => upd({ is_active: e.target.checked })} className="accent-orange-600" /> Show on website</label>
                 </div>

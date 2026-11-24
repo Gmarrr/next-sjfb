@@ -85,7 +85,7 @@ export default function CoreValues({ values, badge, title, subtitle }: { values:
                         <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d={iconFor(idx)} /></svg>
                       </div>
                       <div>
-                        <h4 className="font-bold text-slate-900 uppercase leading-none tracking-tight text-[.88rem]">{v.key}</h4>
+                        <span className="block font-bold text-slate-900 uppercase leading-none tracking-tight text-[.88rem]">{v.key}</span>
                         <p className="text-xs font-bold text-orange-600 italic mt-0.5">{v.value}</p>
                       </div>
                     </div>

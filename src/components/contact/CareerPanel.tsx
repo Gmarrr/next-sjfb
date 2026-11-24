@@ -86,7 +86,7 @@ export default function CareerPanel({ c, hrEmail }: { c: Content<'contact'>; hrE
             <svg className="size-7 text-white" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 21C12 21 4 16.5 4 10.5C4 7.42 6.42 5 9.5 5C11.04 5 12.5 5.8 13.4 7.05C14.3 5.8 15.75 5 17.29 5C20.37 5 22.79 7.42 22.79 10.5C22.79 16.5 14.79 21 14.79 21H12Z" /></svg>
           </div>
           <div>
-            <span className="inline-block bg-orange-500 text-white text-[0.65rem] font-bold tracking-widest uppercase rounded-full px-3 py-1 mb-2">Our HR Brand Promise</span>
+            <span className="inline-block bg-orange-600 text-white text-[0.65rem] font-bold tracking-widest uppercase rounded-full px-3 py-1 mb-2">Our HR Brand Promise</span>
             <p className="text-lg md:text-xl font-extrabold text-white leading-tight"><RichTitle text={c.promiseTitle} hl="text-orange-500" /></p>
             <p className="text-sm text-white/70 mt-1">{c.promiseText}</p>
           </div>
@@ -118,7 +118,7 @@ export default function CareerPanel({ c, hrEmail }: { c: Content<'contact'>; hrE
             <svg className="size-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
             Email {hrEmail}
           </a>
-          <p className="text-xs text-gray-400 mt-3">We typically respond within 3–5 business days.</p>
+          <p className="text-xs text-gray-500 mt-3">We typically respond within 3–5 business days.</p>
         </div>
       </div>
     </>

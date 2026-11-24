@@ -48,7 +48,7 @@ export default async function EventsPage() {
       <section className="py-20 bg-slate-50" id="upcoming-events">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12" data-aos="fade-up">
-            <span className="before:content-[''] before:block before:w-8 before:h-0.5 before:bg-orange-400 inline-flex items-center justify-center gap-2 mb-3 text-xs font-bold uppercase tracking-[0.15em] text-orange-400">{c.eventsEyebrow}</span>
+            <span className="before:content-[''] before:block before:w-8 before:h-0.5 before:bg-orange-400 inline-flex items-center justify-center gap-2 mb-3 text-xs font-bold uppercase tracking-[0.15em] text-orange-600">{c.eventsEyebrow}</span>
             <h2 className="font-display text-3xl md:text-4xl font-bold text-gray-900">{c.eventsTitle}</h2>
             <p className="text-gray-500 mt-3 max-w-xl mx-auto">{c.eventsText}</p>
           </div>
@@ -74,7 +74,7 @@ export default async function EventsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <div data-aos="fade-up">
-              <span className="before:content-[''] before:block before:w-8 before:h-0.5 before:bg-orange-400 inline-flex items-center gap-2 mb-3 text-xs font-bold uppercase tracking-[0.15em] text-orange-400">Internal Engagement</span>
+              <span className="before:content-[''] before:block before:w-8 before:h-0.5 before:bg-orange-400 inline-flex items-center gap-2 mb-3 text-xs font-bold uppercase tracking-[0.15em] text-orange-600">Internal Engagement</span>
               <h2 className="font-display text-2xl md:text-3xl font-bold text-gray-900 mb-4">{c.activitiesTitle}</h2>
               <p className="text-gray-500 mb-6 leading-relaxed">
                 {c.activitiesText}
@@ -98,7 +98,7 @@ export default async function EventsPage() {
             </div>
 
             <div data-aos="fade-up" data-aos-delay="100">
-              <span className="before:content-[''] before:block before:w-8 before:h-0.5 before:bg-orange-400 inline-flex items-center gap-2 mb-3 text-xs font-bold uppercase tracking-[0.15em] text-orange-400">Industry Presence</span>
+              <span className="before:content-[''] before:block before:w-8 before:h-0.5 before:bg-orange-400 inline-flex items-center gap-2 mb-3 text-xs font-bold uppercase tracking-[0.15em] text-orange-600">Industry Presence</span>
               <h2 className="font-display text-2xl md:text-3xl font-bold text-gray-900 mb-4">{c.externalTitle}</h2>
               <p className="text-gray-500 mb-6 leading-relaxed">
                 {c.externalText}
@@ -109,7 +109,7 @@ export default async function EventsPage() {
                     <Link key={p.event_id} href={`/events/${p.event_slug}`} className="block bg-white rounded-xl border border-gray-100 p-5 shadow-sm hover:shadow-md transition-shadow">
                       <div className="flex items-center justify-between gap-3 mb-2">
                         <span className="text-xs font-bold uppercase tracking-wide text-orange-600">{p.event_category}</span>
-                        <span className="text-xs text-gray-400">{fmtMonthYear(p.event_date)}</span>
+                        <span className="text-xs text-gray-500">{fmtMonthYear(p.event_date)}</span>
                       </div>
                       <h3 className="font-display font-bold text-gray-900 mb-1">{p.event_title}</h3>
                       <p className="text-gray-500 text-sm">{p.event_excerpt ?? ''}</p>
@@ -117,7 +117,7 @@ export default async function EventsPage() {
                   ))}
                 </div>
               ) : (
-                <p className="text-gray-400 text-sm italic">Industry participation events will appear here.</p>
+                <p className="text-gray-500 text-sm italic">Industry participation events will appear here.</p>
               )}
             </div>
           </div>
@@ -149,7 +149,7 @@ export default async function EventsPage() {
         <div className="pointer-events-none absolute -top-16 -right-20 w-96 h-96 rounded-full bg-orange-500/5 blur-3xl" aria-hidden="true" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12" data-aos="fade-up">
-            <span className="before:content-[''] before:block before:w-8 before:h-0.5 before:bg-orange-400 inline-flex items-center justify-center gap-2 mb-3 text-xs font-bold uppercase tracking-[0.15em] text-orange-400">Through the Years</span>
+            <span className="before:content-[''] before:block before:w-8 before:h-0.5 before:bg-orange-400 inline-flex items-center justify-center gap-2 mb-3 text-xs font-bold uppercase tracking-[0.15em] text-orange-600">Through the Years</span>
             <h2 className="font-display text-3xl md:text-4xl font-bold text-gray-900">{c.galleryTitle}</h2>
             <p className="text-gray-500 mt-3 max-w-xl mx-auto">{c.galleryText}</p>
           </div>
@@ -166,7 +166,7 @@ export default async function EventsPage() {
             {c.subscribeText}
           </p>
           <SubscribeForm />
-          <p className="text-xs text-gray-400 mt-4">
+          <p className="text-xs text-gray-500 mt-4">
             Or <Link href="/contact" className="text-orange-600 font-semibold hover:underline">contact us directly</Link> to RSVP for our next event.
           </p>
         </div>

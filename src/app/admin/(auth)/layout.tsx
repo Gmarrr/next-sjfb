@@ -8,7 +8,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
           <p className="mt-3 text-xs font-bold uppercase tracking-[.2em] text-orange-600">Website Admin</p>
         </div>
         <div className="bg-white rounded-2xl shadow-[0_8px_24px_rgba(0,0,0,.08),0_28px_56px_rgba(0,0,0,.06)] border border-slate-100 p-7 sm:p-8">{children}</div>
-        <p className="text-center text-xs text-slate-400 mt-6">
+        <p className="text-center text-xs text-slate-500 mt-6">
           <a href="/" className="hover:text-orange-600">← Back to website</a>
         </p>
       </div>

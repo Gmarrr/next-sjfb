@@ -83,6 +83,10 @@ function SplitterRow({ panels, rowIndex }: { panels: [string, number][]; rowInde
               className="photo-splitter-handle relative flex-none w-3.5 sm:w-4 bg-white cursor-col-resize group z-10"
               role="separator"
               aria-orientation="vertical"
+              aria-label={`Resize photos ${pi} and ${pi + 1}`}
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-valuenow={Math.round((ratios[pi - 1] / (ratios[pi - 1] + ratios[pi])) * 100)}
               tabIndex={0}
               onMouseDown={(e) => { e.preventDefault(); startDrag(pi, e.clientX); }}
               onTouchStart={(e) => startDrag(pi, e.touches[0].clientX)}
@@ -92,7 +96,7 @@ function SplitterRow({ panels, rowIndex }: { panels: [string, number][]; rowInde
               }}
             >
               <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center w-4 h-7 sm:h-8 rounded-md bg-white border border-orange-200 text-orange-500 shadow-sm group-hover:bg-orange-50 group-active:bg-orange-100 transition-colors">
-                <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                <svg aria-hidden="true" className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                   <circle cx="9" cy="12" r="1" /><circle cx="9" cy="5" r="1" /><circle cx="9" cy="19" r="1" />
                   <circle cx="15" cy="12" r="1" /><circle cx="15" cy="5" r="1" /><circle cx="15" cy="19" r="1" />
                 </svg>
@@ -130,7 +134,7 @@ export default function PhotoMosaic({ photos, badge, title }: { photos: string[]
           </h2>
         </div>
         <div className="space-y-4 lg:space-y-5 mx-auto">
-          {rows.map((row, ri) => <SplitterRow key={ri + row.length} panels={row} rowIndex={ri} />)}
+          {rows.map((row, ri) => <SplitterRow key={`${ri}:${row.map(([src]) => src).join("|")}`} panels={row} rowIndex={ri} />)}
         </div>
       </div>
     </section>
